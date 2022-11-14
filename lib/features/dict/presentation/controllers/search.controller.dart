@@ -51,8 +51,8 @@ class SearchPageController extends StateNotifier<SearchState> {
     final result = await _kanjiRepository.searchKanji(key);
     result.fold((failure) {
       state = const SearchError('');
-    }, (kanji) {
-      state = SearchLoaded(kanji);
+    }, (success) {
+      state = SearchLoaded(kanji: success);
     });
   }
 }

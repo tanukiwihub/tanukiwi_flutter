@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nagara_app/features/dict/presentation/controllers/search.controller.dart';
-import 'package:nagara_app/features/dict/presentation/controllers/search.state.dart';
+
+import '../controllers/search.controller.dart';
+import '../controllers/search.state.dart';
+import '../widgets/searchLoaded.widget.dart';
 
 class SearchPage extends StatelessWidget {
   const SearchPage({super.key});
@@ -10,82 +12,11 @@ class SearchPage extends StatelessWidget {
   Widget build(BuildContext context) => Consumer(
         builder: (context, ref, child) {
           final state = ref.watch(searchPageControllerProvider);
+
           Widget body = Container();
 
           if (state is SearchLoaded) {
-            body = SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('${state.result.length.toString()} kanji'),
-                  ListView.builder(
-                    itemCount:
-                        state.result.length < 32 ? state.result.length : 32,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (BuildContext context, int kanjiIndex) {
-                      String meaningString = '';
-                      String readingJaKunString = '';
-                      String readingJaOnString = '';
-
-                      for (var a in state.result[kanjiIndex].meaningEn) {
-                        meaningString += a;
-                        if (a != state.result[kanjiIndex].meaningEn.last) {
-                          meaningString += ', ';
-                        }
-                      }
-
-                      for (var a in state.result[kanjiIndex].readingJaKun) {
-                        readingJaKunString += a;
-                        if (a != state.result[kanjiIndex].readingJaKun.last) {
-                          readingJaKunString += ', ';
-                        }
-                      }
-
-                      for (var a in state.result[kanjiIndex].readingJaOn) {
-                        readingJaOnString += a;
-                        if (a != state.result[kanjiIndex].readingJaOn.last) {
-                          readingJaOnString += ', ';
-                        }
-                      }
-
-                      return ListTile(
-                        title: Text(
-                          state.result[kanjiIndex].literal,
-                        ),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              meaningString,
-                            ),
-                            RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: readingJaKunString,
-                                  ),
-                                  TextSpan(
-                                    text: readingJaKunString != '' &&
-                                            readingJaOnString != ''
-                                        ? ' • '
-                                        : '',
-                                  ),
-                                  TextSpan(
-                                    text: readingJaOnString,
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
-            );
+            body = SearchLoadedWidget(kanji: state.kanji);
           } else if (state is SearchError) {
             print('error');
           } else if (state is SearchInitial) {

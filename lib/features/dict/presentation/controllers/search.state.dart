@@ -24,11 +24,12 @@ class SearchLoading extends SearchState {
 }
 
 class SearchLoaded extends SearchState {
-  final List<KanjiSearchResult> result;
-  const SearchLoaded(this.result);
+  final List<KanjiSearchResult> kanji;
+
+  SearchLoaded({required this.kanji});
 
   @override
-  List<Object> get props => super.props..addAll([result]);
+  List<Object> get props => super.props..addAll([kanji]);
 }
 
 class SearchError extends SearchState {
