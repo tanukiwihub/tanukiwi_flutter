@@ -1,5 +1,12 @@
+import 'package:kana_kit/kana_kit.dart';
+
 class SearchKanjiRawQuery {
+  static const kanaKit = KanaKit();
+
   String query(String key) {
+    if (kanaKit.isKanji(key)) {
+    } else if (kanaKit.isKana(key)) {
+    } else {}
     return '''
 SELECT 
 kanji.id, kanji.literal,  

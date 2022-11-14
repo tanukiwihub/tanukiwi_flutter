@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nagara_app/features/dict/presentation/controllers/home.controller.dart';
-import 'package:nagara_app/features/dict/presentation/controllers/home.state.dart';
+import 'package:nagara_app/features/dict/presentation/controllers/search.controller.dart';
+import 'package:nagara_app/features/dict/presentation/controllers/search.state.dart';
 
-class DictPage extends StatelessWidget {
-  const DictPage({super.key});
+class SearchPage extends StatelessWidget {
+  const SearchPage({super.key});
 
   @override
   Widget build(BuildContext context) => Consumer(
         builder: (context, ref, child) {
-          final state = ref.watch(homeScreenControllerProvider);
+          final state = ref.watch(searchPageControllerProvider);
 
           Widget body = Container();
 
-          if (state is HomeLoaded) {
+          if (state is SearchLoaded) {
             body = SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -87,27 +87,48 @@ class DictPage extends StatelessWidget {
                 ],
               ),
             );
-          } else if (state is HomeError) {
+          } else if (state is SearchError) {
             print('error');
+          } else if (state is SearchInitial) {
+            body = const Text('initial');
+          } else if (state is SearchActive) {
+            body = const Text('active');
+          } else {
+            body = const Text('error');
           }
 
           return Scaffold(
             appBar: AppBar(
               title: TextField(
-                onChanged: (value) async {
-                  if (value.isNotEmpty) {
-                    await ref
-                        .read(homeScreenControllerProvider.notifier)
-                        .searchKanji(value);
-                  }
-                },
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.search_outlined),
-                  suffixIcon: Icon(Icons.cancel_outlined),
+                controller: searchFieldController,
+                focusNode: searchFieldFocus,
+                decoration: InputDecoration(
+                  prefixIcon: state is SearchInitial
+                      ? const Icon(Icons.search)
+                      : IconButton(
+                          onPressed: ref
+                              .read(searchPageControllerProvider.notifier)
+                              .cancelSearch,
+                          icon: const Icon(Icons.arrow_back),
+                        ),
+                  suffixIcon: searchFieldController.text.isNotEmpty
+                      ? IconButton(
+                          onPressed: ref
+                              .read(searchPageControllerProvider.notifier)
+                              .clearSearch,
+                          icon: const Icon(Icons.cancel),
+                        )
+                      : null,
                 ),
               ),
             ),
-            body: body,
+            body: GestureDetector(
+              onTap: () {
+                // Hide keyboard when clicking outside app bar
+                FocusScope.of(context).requestFocus(FocusNode());
+              },
+              child: body,
+            ),
           );
         },
       );

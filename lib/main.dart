@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'common/utils/database.util.dart';
-import 'features/dict/presentation/screens/home.dart';
+import 'features/dict/presentation/pages/search.page.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,13 +30,15 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         brightness: Brightness.light,
+        useMaterial3: true,
       ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
+        useMaterial3: true,
       ),
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
-      home: const DictPage(),
+      home: const SearchPage(),
     );
   }
 }
