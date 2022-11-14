@@ -1,3 +1,3 @@
 class NagaraDbConstants {
-  static const dbName = 'nagara_db_v1.1.1.db';
+  static const dbName = 'nagara_db_v1.1.2.db';
 }

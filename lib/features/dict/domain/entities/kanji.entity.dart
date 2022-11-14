@@ -4,6 +4,10 @@ import 'package:equatable/equatable.dart';
 class KanjiSearchResult extends Equatable {
   final int id;
   final String literal;
+  final int strokeCount;
+  final int? grade;
+  final int? jlpt;
+  final int? freq;
   final List<String> meaningEn;
   final List<String> readingJaKun;
   final List<String> readingJaOn;
@@ -11,6 +15,10 @@ class KanjiSearchResult extends Equatable {
   const KanjiSearchResult({
     required this.id,
     required this.literal,
+    required this.strokeCount,
+    this.grade,
+    this.jlpt,
+    this.freq,
     required this.meaningEn,
     required this.readingJaKun,
     required this.readingJaOn,
@@ -20,6 +28,10 @@ class KanjiSearchResult extends Equatable {
   List<Object?> get props => [
         id,
         literal,
+        strokeCount,
+        grade,
+        jlpt,
+        freq,
         meaningEn,
         readingJaKun,
         readingJaOn,
