@@ -5,11 +5,11 @@ import '../../data/repositories/kanji.repository.dart';
 import '../../domain/repositories/kanji.repository.dart';
 import 'search.state.dart';
 
-final FocusNode searchFieldFocus = FocusNode();
-final TextEditingController searchFieldController = TextEditingController();
-
 class SearchPageController extends StateNotifier<SearchState> {
   final KanjiRepository _kanjiRepository;
+
+  final FocusNode searchFieldFocus = FocusNode();
+  final TextEditingController searchFieldController = TextEditingController();
 
   SearchPageController(this._kanjiRepository) : super(const SearchInitial()) {
     _init();
@@ -20,32 +20,27 @@ class SearchPageController extends StateNotifier<SearchState> {
     searchFieldFocus.addListener(_onSearchFieldFocus);
   }
 
-  void _setInitialState() {
-    state = const SearchInitial();
-  }
-
-  void _setActiveState() {
-    state = const SearchActive();
-  }
-
   void _onSearchFieldChange() {
     if (searchFieldController.text.isEmpty) {
-      _setActiveState();
+      state = const SearchActive();
     } else {
+      if (state is SearchActive) {
+        state = const SearchLoading();
+      }
       _searchKanji(searchFieldController.text);
     }
   }
 
   void _onSearchFieldFocus() {
     if (searchFieldFocus.hasFocus && searchFieldController.text.isEmpty) {
-      _setActiveState();
+      state = const SearchActive();
     }
   }
 
   void cancelSearch() {
     searchFieldController.clear();
     searchFieldFocus.unfocus();
-    _setInitialState();
+    state = const SearchInitial();
   }
 
   void clearSearch() {
@@ -63,7 +58,7 @@ class SearchPageController extends StateNotifier<SearchState> {
 }
 
 final searchPageControllerProvider =
-    StateNotifierProvider.autoDispose<SearchPageController, SearchState>((ref) {
+    StateNotifierProvider<SearchPageController, SearchState>((ref) {
   return SearchPageController(
     ref.watch(kanjiRespositoryProvider),
   );

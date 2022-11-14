@@ -10,7 +10,6 @@ class SearchPage extends StatelessWidget {
   Widget build(BuildContext context) => Consumer(
         builder: (context, ref, child) {
           final state = ref.watch(searchPageControllerProvider);
-
           Widget body = Container();
 
           if (state is SearchLoaded) {
@@ -93,6 +92,7 @@ class SearchPage extends StatelessWidget {
             body = const Text('initial');
           } else if (state is SearchActive) {
             body = const Text('active');
+          } else if (state is SearchLoading) {
           } else {
             body = const Text('error');
           }
@@ -100,8 +100,12 @@ class SearchPage extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               title: TextField(
-                controller: searchFieldController,
-                focusNode: searchFieldFocus,
+                controller: ref
+                    .read(searchPageControllerProvider.notifier)
+                    .searchFieldController,
+                focusNode: ref
+                    .read(searchPageControllerProvider.notifier)
+                    .searchFieldFocus,
                 decoration: InputDecoration(
                   prefixIcon: state is SearchInitial
                       ? const Icon(Icons.search)
@@ -111,7 +115,11 @@ class SearchPage extends StatelessWidget {
                               .cancelSearch,
                           icon: const Icon(Icons.arrow_back),
                         ),
-                  suffixIcon: searchFieldController.text.isNotEmpty
+                  suffixIcon: ref
+                          .read(searchPageControllerProvider.notifier)
+                          .searchFieldController
+                          .text
+                          .isNotEmpty
                       ? IconButton(
                           onPressed: ref
                               .read(searchPageControllerProvider.notifier)
