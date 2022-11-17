@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../domain/entities/kanji.entity.dart';
 
@@ -75,6 +76,15 @@ class SearchLoadedWidget extends StatelessWidget {
                     )
                   ],
                 ),
+                onTap: () => {
+                  context.goNamed(
+                    "kanji",
+                    params: {
+                      "literal": kanji[kanjiIndex].literal,
+                      "id": kanji[kanjiIndex].id.toString(),
+                    },
+                  ),
+                },
               );
             },
           ),

@@ -24,6 +24,16 @@ class KanjiRepositoryImpl implements KanjiRepository {
       return Left(DbFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, Kanji>> getKanji(int id) async {
+    try {
+      final kanji = await dataSourceLocal.getKanji(id);
+      return Right(kanji);
+    } on DbException {
+      return Left(DbFailure());
+    }
+  }
 }
 
 final kanjiRespositoryProvider = Provider<KanjiRepository>((ref) {

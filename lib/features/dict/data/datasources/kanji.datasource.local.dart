@@ -1,15 +1,18 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nagara_app/features/dict/data/queries/kanji.query.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../../../common/exceptions/exceptions.dart';
 import '../../../../common/utils/database.util.dart';
 import '../models/kanji.model.dart';
-import '../queries/nagara.queries.dart';
+import '../queries/searchKanji.query.dart';
 
 abstract class KanjiDataSourceLocal {
   /// Get kanji search results from database
   Future<List<KanjiSearchResultModel>> searchKanji(String key);
+
+  Future<KanjiModel> getKanji(int id);
 }
 
 class KanjiDataSourceLocalImpl implements KanjiDataSourceLocal {
@@ -32,6 +35,22 @@ class KanjiDataSourceLocalImpl implements KanjiDataSourceLocal {
       for (var distinctRow in distinctRows) {
         result.add(KanjiSearchResultModel.fromList(distinctRow));
       }
+
+      return result;
+    } catch (error) {
+      debugPrint(error.toString());
+      throw DbException();
+    }
+  }
+
+  @override
+  Future<KanjiModel> getKanji(int id) async {
+    String query = KanjiRawQuery().query(id);
+
+    try {
+      List<Map<String, dynamic>> rows = await db.rawQuery(query);
+
+      KanjiModel result = KanjiModel.fromList(rows);
 
       return result;
     } catch (error) {
