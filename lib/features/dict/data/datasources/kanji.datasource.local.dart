@@ -1,14 +1,16 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nagara_app/features/dict/data/queries/kanji.query.dart';
-import 'package:nagara_app/features/dict/data/queries/kanjiLookalike.query.dart';
-import 'package:nagara_app/features/dict/data/queries/kanjiPart.query.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../../../common/exceptions/exceptions.dart';
 import '../../../../common/utils/database.util.dart';
 import '../models/kanji.model.dart';
 import '../models/kanjiPart.model.dart';
+import '../queries/kanji.query.dart';
+import '../queries/kanjiAntonym.query.dart';
+import '../queries/kanjiLookalike.query.dart';
+import '../queries/kanjiPart.query.dart';
+import '../queries/kanjiSynonym.query.dart';
 import '../queries/searchKanji.query.dart';
 
 abstract class KanjiDataSourceLocal {
@@ -20,6 +22,10 @@ abstract class KanjiDataSourceLocal {
   Future<List<KanjiPartModel>> getKanjiParts(int kanjiId);
 
   Future<List<KanjiModel>> getKanjiLookalikes(int kanjiId);
+
+  Future<List<KanjiModel>> getKanjiAntonyms(int kanjiId);
+
+  Future<List<KanjiModel>> getKanjiSynonyms(int kanjiId);
 }
 
 class KanjiDataSourceLocalImpl implements KanjiDataSourceLocal {
@@ -92,6 +98,52 @@ class KanjiDataSourceLocalImpl implements KanjiDataSourceLocal {
   @override
   Future<List<KanjiModel>> getKanjiLookalikes(int kanjiId) async {
     String query = GetKanjiLookalikeRawQuery().query(kanjiId);
+
+    try {
+      List<Map<String, dynamic>> rows = await db.rawQuery(query);
+
+      List<List<Map<String, dynamic>>> distinctRows =
+          _createDistinctLists(rows, 'k_id');
+
+      List<KanjiModel> result = [];
+
+      for (var distinctRow in distinctRows) {
+        result.add(KanjiModel.fromList(distinctRow));
+      }
+
+      return result;
+    } catch (error) {
+      debugPrint(error.toString());
+      throw DbException();
+    }
+  }
+
+  @override
+  Future<List<KanjiModel>> getKanjiAntonyms(int kanjiId) async {
+    String query = GetKanjiAntonymRawQuery().query(kanjiId);
+
+    try {
+      List<Map<String, dynamic>> rows = await db.rawQuery(query);
+
+      List<List<Map<String, dynamic>>> distinctRows =
+          _createDistinctLists(rows, 'k_id');
+
+      List<KanjiModel> result = [];
+
+      for (var distinctRow in distinctRows) {
+        result.add(KanjiModel.fromList(distinctRow));
+      }
+
+      return result;
+    } catch (error) {
+      debugPrint(error.toString());
+      throw DbException();
+    }
+  }
+
+  @override
+  Future<List<KanjiModel>> getKanjiSynonyms(int kanjiId) async {
+    String query = GetKanjiSynonymRawQuery().query(kanjiId);
 
     try {
       List<Map<String, dynamic>> rows = await db.rawQuery(query);

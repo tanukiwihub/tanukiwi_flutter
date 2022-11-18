@@ -17,8 +17,10 @@ class Kanji extends Equatable {
   final List<String> readingJaOn;
   final List<String> nanori;
   final List<KanjiQueryCode> queryCode;
-  final List<KanjiPart>? parts;
-  final List<Kanji>? lookalikes;
+  final List<KanjiPart>? part;
+  final List<Kanji>? lookalike;
+  final List<Kanji>? antonym;
+  final List<Kanji>? synonym;
 
   const Kanji({
     required this.id,
@@ -32,8 +34,10 @@ class Kanji extends Equatable {
     required this.readingJaOn,
     required this.nanori,
     required this.queryCode,
-    this.parts,
-    this.lookalikes,
+    this.part,
+    this.lookalike,
+    this.antonym,
+    this.synonym,
   });
 
   @override
@@ -49,8 +53,10 @@ class Kanji extends Equatable {
         readingJaOn,
         nanori,
         queryCode,
-        parts,
-        lookalikes,
+        part,
+        lookalike,
+        antonym,
+        synonym,
       ];
 
   Kanji copyWith({
@@ -65,8 +71,10 @@ class Kanji extends Equatable {
     List<String>? readingJaOn,
     List<String>? nanori,
     List<KanjiQueryCode>? queryCode,
-    List<KanjiPart>? parts,
-    List<Kanji>? lookalikes,
+    List<KanjiPart>? part,
+    List<Kanji>? lookalike,
+    List<Kanji>? antonym,
+    List<Kanji>? synonym,
   }) {
     return Kanji(
       id: id ?? this.id,
@@ -80,8 +88,10 @@ class Kanji extends Equatable {
       readingJaOn: readingJaOn ?? this.readingJaOn,
       nanori: nanori ?? this.nanori,
       queryCode: queryCode ?? this.queryCode,
-      parts: parts ?? this.parts,
-      lookalikes: lookalikes ?? this.lookalikes,
+      part: part ?? this.part,
+      lookalike: lookalike ?? this.lookalike,
+      antonym: antonym ?? this.antonym,
+      synonym: synonym ?? this.synonym,
     );
   }
 }

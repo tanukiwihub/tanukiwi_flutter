@@ -1,8 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/repositories/kanji.repository.dart';
-import '../../domain/entities/kanji.entity.dart';
-import '../../domain/entities/kanjiPart.entity.dart';
 import '../../domain/repositories/kanji.repository.dart';
 import 'kanji.state.dart';
 
