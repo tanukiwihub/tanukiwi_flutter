@@ -28,8 +28,6 @@ class KanjiPage extends StatelessWidget {
             Consumer(builder: (context, ref, child) {
               final state = ref.watch(kanjiPageControllerProvider(kanjiId));
 
-              debugPrint('page rebuild');
-
               if (state is KanjiLoaded) {
                 return Text(
                   state.kanji.toString(),

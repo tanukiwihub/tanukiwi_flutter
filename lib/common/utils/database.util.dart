@@ -43,8 +43,8 @@ class DatabaseUtil {
       await File(path).writeAsBytes(bytes, flush: true);
     }
     // open the database
-    debugPrint("Open Database");
     database = await openDatabase(path, readOnly: true);
+    debugPrint("Database opened");
   }
 }
 

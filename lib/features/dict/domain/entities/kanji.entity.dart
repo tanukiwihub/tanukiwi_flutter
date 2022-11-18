@@ -1,8 +1,7 @@
 import 'package:equatable/equatable.dart';
-import 'package:nagara_app/features/dict/domain/entities/kanjiPart.entity.dart';
 
 import 'kanjiDicRef.entity.dart';
-import 'kanjiQueryCode.entity.dart';
+import 'kanjiPart.entity.dart';
 
 class Kanji extends Equatable {
   final int id;
@@ -98,4 +97,20 @@ class Kanji extends Equatable {
       synonym: synonym ?? this.synonym,
     );
   }
+}
+
+class KanjiQueryCode extends Equatable {
+  final String type;
+  final String value;
+
+  const KanjiQueryCode({
+    required this.type,
+    required this.value,
+  });
+
+  @override
+  List<Object?> get props => [
+        type,
+        value,
+      ];
 }

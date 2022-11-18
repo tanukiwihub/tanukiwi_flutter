@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nagara_app/features/dict/data/queries/kanjiDicRef.query.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../../../common/exceptions/exceptions.dart';
@@ -11,13 +10,13 @@ import '../models/kanjiDicRef.model.dart';
 import '../models/kanjiPart.model.dart';
 import '../queries/kanji.query.dart';
 import '../queries/kanjiAntonym.query.dart';
+import '../queries/kanjiDicRef.query.dart';
 import '../queries/kanjiLookalike.query.dart';
 import '../queries/kanjiPart.query.dart';
 import '../queries/kanjiSynonym.query.dart';
 import '../queries/searchKanji.query.dart';
 
 abstract class KanjiDataSourceLocal {
-  /// Get kanji search results from database
   Future<List<KanjiModel>> searchKanji(String key);
 
   Future<KanjiModel> getKanji(int kanjiId);
@@ -89,8 +88,6 @@ class KanjiDataSourceLocalImpl implements KanjiDataSourceLocal {
       for (var row in rows) {
         result.add(KanjiDicRefModel.fromMap(row));
       }
-
-      debugPrint(result.toString());
 
       return result;
     } catch (error) {
