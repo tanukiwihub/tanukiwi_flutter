@@ -32,9 +32,7 @@ class KanjiPage extends StatelessWidget {
 
               if (state is KanjiLoaded) {
                 return Text(
-                  state.kanji.toString() +
-                      state.kanjiParts.toString() +
-                      state.kanjiLookalikes.toString(),
+                  state.kanji.toString(),
                 );
               } else {
                 return const Text('error');

@@ -17,32 +17,12 @@ class KanjiPageController extends StateNotifier<KanjiState> {
 
   Future<void> _init() async {
     final kanjiResult = await _kanjiRepository.getKanji(_kanjiId);
-    final kanjiPartsResult = await _kanjiRepository.getKanjiParts(_kanjiId);
-    final kanjiLookalikesResult =
-        await _kanjiRepository.getKanjiLookalikes(_kanjiId);
-
-    List<KanjiPart> kanjiParts = [];
-    List<Kanji> kanjiLookalikes = [];
-
-    kanjiPartsResult.fold((failure) {
-      state = const KanjiError('');
-    }, (success) {
-      kanjiParts = success;
-    });
-
-    kanjiLookalikesResult.fold((failure) {
-      state = const KanjiError('');
-    }, (success) {
-      kanjiLookalikes = success;
-    });
 
     kanjiResult.fold((failure) {
       state = const KanjiError('');
     }, (success) {
       state = KanjiLoaded(
         kanji: success,
-        kanjiParts: kanjiParts,
-        kanjiLookalikes: kanjiLookalikes,
       );
     });
   }

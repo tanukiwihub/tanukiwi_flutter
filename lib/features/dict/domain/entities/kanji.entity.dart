@@ -1,4 +1,7 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
+
+import 'package:nagara_app/features/dict/domain/entities/kanjiPart.entity.dart';
 
 import 'kanjiQueryCode.entity.dart';
 
@@ -14,6 +17,8 @@ class Kanji extends Equatable {
   final List<String> readingJaOn;
   final List<String> nanori;
   final List<KanjiQueryCode> queryCode;
+  final List<KanjiPart>? parts;
+  final List<Kanji>? lookalikes;
 
   const Kanji({
     required this.id,
@@ -27,6 +32,8 @@ class Kanji extends Equatable {
     required this.readingJaOn,
     required this.nanori,
     required this.queryCode,
+    this.parts,
+    this.lookalikes,
   });
 
   @override
@@ -41,6 +48,40 @@ class Kanji extends Equatable {
         readingJaKun,
         readingJaOn,
         nanori,
-        queryCode
+        queryCode,
+        parts,
+        lookalikes,
       ];
+
+  Kanji copyWith({
+    int? id,
+    String? literal,
+    int? freq,
+    int? grade,
+    int? jlpt,
+    int? strokeCount,
+    List<String>? meaningEn,
+    List<String>? readingJaKun,
+    List<String>? readingJaOn,
+    List<String>? nanori,
+    List<KanjiQueryCode>? queryCode,
+    List<KanjiPart>? parts,
+    List<Kanji>? lookalikes,
+  }) {
+    return Kanji(
+      id: id ?? this.id,
+      literal: literal ?? this.literal,
+      freq: freq ?? this.freq,
+      grade: grade ?? this.grade,
+      jlpt: jlpt ?? this.jlpt,
+      strokeCount: strokeCount ?? this.strokeCount,
+      meaningEn: meaningEn ?? this.meaningEn,
+      readingJaKun: readingJaKun ?? this.readingJaKun,
+      readingJaOn: readingJaOn ?? this.readingJaOn,
+      nanori: nanori ?? this.nanori,
+      queryCode: queryCode ?? this.queryCode,
+      parts: parts ?? this.parts,
+      lookalikes: lookalikes ?? this.lookalikes,
+    );
+  }
 }

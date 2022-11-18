@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:nagara_app/features/dict/domain/entities/kanjiPart.entity.dart';
 
 import '../../domain/entities/kanji.entity.dart';
 
@@ -18,20 +17,15 @@ class KanjiLoading extends KanjiState {
 
 class KanjiLoaded extends KanjiState {
   final Kanji kanji;
-  final List<KanjiPart> kanjiParts;
-  final List<Kanji> kanjiLookalikes;
 
   KanjiLoaded({
     required this.kanji,
-    required this.kanjiParts,
-    required this.kanjiLookalikes,
   });
 
   @override
   List<Object> get props => super.props
     ..addAll([
       kanji,
-      kanjiParts,
     ]);
 }
 
