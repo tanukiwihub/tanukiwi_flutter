@@ -28,12 +28,14 @@ class KanjiRepositoryImpl implements KanjiRepository {
   Future<Either<Failure, Kanji>> getKanji(int kanjiId) async {
     try {
       final kanji = await dataSourceLocal.getKanji(kanjiId);
+      final kanjiDicRef = await dataSourceLocal.getKanjiDicRef(kanjiId);
       final kanjiParts = await dataSourceLocal.getKanjiParts(kanjiId);
       final kanjiLookalikes = await dataSourceLocal.getKanjiLookalikes(kanjiId);
       final kanjiAntonyms = await dataSourceLocal.getKanjiAntonyms(kanjiId);
       final kanjiSynonyms = await dataSourceLocal.getKanjiSynonyms(kanjiId);
 
       final kanjiPlus = kanji.copyWith(
+        dicRef: kanjiDicRef,
         part: kanjiParts,
         lookalike: kanjiLookalikes,
         antonym: kanjiAntonyms,

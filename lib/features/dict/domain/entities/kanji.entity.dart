@@ -1,8 +1,7 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
-
 import 'package:nagara_app/features/dict/domain/entities/kanjiPart.entity.dart';
 
+import 'kanjiDicRef.entity.dart';
 import 'kanjiQueryCode.entity.dart';
 
 class Kanji extends Equatable {
@@ -17,6 +16,7 @@ class Kanji extends Equatable {
   final List<String> readingJaOn;
   final List<String> nanori;
   final List<KanjiQueryCode> queryCode;
+  final List<KanjiDicRef>? dicRef;
   final List<KanjiPart>? part;
   final List<Kanji>? lookalike;
   final List<Kanji>? antonym;
@@ -34,6 +34,7 @@ class Kanji extends Equatable {
     required this.readingJaOn,
     required this.nanori,
     required this.queryCode,
+    this.dicRef,
     this.part,
     this.lookalike,
     this.antonym,
@@ -53,6 +54,7 @@ class Kanji extends Equatable {
         readingJaOn,
         nanori,
         queryCode,
+        dicRef,
         part,
         lookalike,
         antonym,
@@ -71,6 +73,7 @@ class Kanji extends Equatable {
     List<String>? readingJaOn,
     List<String>? nanori,
     List<KanjiQueryCode>? queryCode,
+    List<KanjiDicRef>? dicRef,
     List<KanjiPart>? part,
     List<Kanji>? lookalike,
     List<Kanji>? antonym,
@@ -88,6 +91,7 @@ class Kanji extends Equatable {
       readingJaOn: readingJaOn ?? this.readingJaOn,
       nanori: nanori ?? this.nanori,
       queryCode: queryCode ?? this.queryCode,
+      dicRef: dicRef ?? this.dicRef,
       part: part ?? this.part,
       lookalike: lookalike ?? this.lookalike,
       antonym: antonym ?? this.antonym,

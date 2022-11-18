@@ -1,10 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nagara_app/features/dict/data/queries/kanjiDicRef.query.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../../../common/exceptions/exceptions.dart';
 import '../../../../common/utils/database.util.dart';
+import '../../domain/entities/kanjiDicRef.entity.dart';
 import '../models/kanji.model.dart';
+import '../models/kanjiDicRef.model.dart';
 import '../models/kanjiPart.model.dart';
 import '../queries/kanji.query.dart';
 import '../queries/kanjiAntonym.query.dart';
@@ -18,6 +21,8 @@ abstract class KanjiDataSourceLocal {
   Future<List<KanjiModel>> searchKanji(String key);
 
   Future<KanjiModel> getKanji(int kanjiId);
+
+  Future<List<KanjiDicRef>> getKanjiDicRef(int kanjiId);
 
   Future<List<KanjiPartModel>> getKanjiParts(int kanjiId);
 
@@ -64,6 +69,28 @@ class KanjiDataSourceLocalImpl implements KanjiDataSourceLocal {
       List<Map<String, dynamic>> rows = await db.rawQuery(query);
 
       KanjiModel result = KanjiModel.fromList(rows);
+
+      return result;
+    } catch (error) {
+      debugPrint(error.toString());
+      throw DbException();
+    }
+  }
+
+  @override
+  Future<List<KanjiDicRefModel>> getKanjiDicRef(int kanjiId) async {
+    String query = GetKanjiDicRefRawQuery().query(kanjiId);
+
+    try {
+      List<Map<String, dynamic>> rows = await db.rawQuery(query);
+
+      List<KanjiDicRefModel> result = [];
+
+      for (var row in rows) {
+        result.add(KanjiDicRefModel.fromMap(row));
+      }
+
+      debugPrint(result.toString());
 
       return result;
     } catch (error) {
