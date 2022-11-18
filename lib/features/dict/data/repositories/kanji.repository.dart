@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../common/exceptions/exceptions.dart';
 import '../../../../common/exceptions/failures.dart';
 import '../../domain/entities/kanji.entity.dart';
+import '../../domain/entities/kanjiPart.entity.dart';
 import '../../domain/repositories/kanji.repository.dart';
 import '../datasources/kanji.datasource.local.dart';
 
@@ -15,8 +16,7 @@ class KanjiRepositoryImpl implements KanjiRepository {
   });
 
   @override
-  Future<Either<Failure, List<KanjiSearchResult>>> searchKanji(
-      String key) async {
+  Future<Either<Failure, List<Kanji>>> searchKanji(String key) async {
     try {
       final kanjis = await dataSourceLocal.searchKanji(key);
       return Right(kanjis);
@@ -26,9 +26,19 @@ class KanjiRepositoryImpl implements KanjiRepository {
   }
 
   @override
-  Future<Either<Failure, Kanji>> getKanji(int id) async {
+  Future<Either<Failure, List<KanjiPart>>> getKanjiParts(int kanjiId) async {
     try {
-      final kanji = await dataSourceLocal.getKanji(id);
+      final kanjiParts = await dataSourceLocal.getKanjiParts(kanjiId);
+      return Right(kanjiParts);
+    } on DbException {
+      return Left(DbFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, Kanji>> getKanji(int kanjiId) async {
+    try {
+      final kanji = await dataSourceLocal.getKanji(kanjiId);
       return Right(kanji);
     } on DbException {
       return Left(DbFailure());

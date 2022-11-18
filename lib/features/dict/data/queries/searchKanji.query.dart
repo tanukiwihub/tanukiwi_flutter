@@ -2,10 +2,10 @@ class SearchKanjiRawQuery {
   String query(String key) {
     return '''
 SELECT 
-kanji.*,  
-kanji_misc.freq, kw_kanji_grade.value as grade, kw_kanji_jlpt.value as jlpt, kw_kanji_strokecount.value as stroke_count,
-kanji_meaning.value as meaning, kanji_meaning.position as meaning_pos, kw_kanji_lang.value as meaning_lang,
-kanji_reading.value as reading, kanji_reading.position as reading_pos, kw_kanji_readingtype.value as reading_type
+kanji.id AS k_id, kanji.literal AS k_literal,  
+kanji_misc.freq AS k_freq, kw_kanji_grade.value AS k_grade, kw_kanji_jlpt.value AS k_jlpt, kw_kanji_strokecount.value AS k_stroke_count,
+kanji_meaning.value AS k_meaning, kanji_meaning.position AS k_meaning_pos, kw_kanji_lang.value AS k_meaning_lang,
+kanji_reading.value AS k_reading, kanji_reading.position AS k_reading_pos, kw_kanji_readingtype.value AS k_reading_type
 
 FROM kanji
  
@@ -33,10 +33,10 @@ WHERE kanji.id IN
     JOIN kanji_reading ON kanji_reading.kanji_id = kanji.id
     JOIN kw_kanji_readingtype ON kw_kanji_readingtype.id = kanji_reading.kwKanjiReadingType_id AND (kw_kanji_readingtype.value = 'ja_kun' OR  kw_kanji_readingtype.value = 'ja_on' )
 
-    WHERE kanji.literal LIKE '%$key%' OR kanji_meaning.value LIKE '%$key%'  OR replace(kanji_reading.value, '.', '')  LIKE '%$key%'
+    WHERE kanji.literal LIKE '$key' OR kanji_meaning.value LIKE '%$key%'  OR replace(kanji_reading.value, '.', '')  LIKE '$key%'
 )
 
-ORDER BY kanji_misc.freq ASC
+ORDER BY kanji_misc.freq ASC NULLS LAST
     ''';
   }
 }

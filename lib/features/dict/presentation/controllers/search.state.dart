@@ -24,7 +24,7 @@ class SearchLoading extends SearchState {
 }
 
 class SearchLoaded extends SearchState {
-  final List<KanjiSearchResult> kanji;
+  final List<Kanji> kanji;
 
   SearchLoaded({required this.kanji});
 

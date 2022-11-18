@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../domain/entities/kanji.entity.dart';
 
 class SearchLoadedWidget extends StatelessWidget {
-  final List<KanjiSearchResult> kanji;
+  final List<Kanji> kanji;
 
   const SearchLoadedWidget({Key? key, required this.kanji}) : super(key: key);
 
@@ -25,23 +25,26 @@ class SearchLoadedWidget extends StatelessWidget {
               String readingJaKunString = '';
               String readingJaOnString = '';
 
-              for (var a in kanji[kanjiIndex].meaningEn) {
+              var meaningEn = kanji[kanjiIndex].meaningEn;
+              for (var a in meaningEn) {
                 meaningString += a;
-                if (a != kanji[kanjiIndex].meaningEn.last) {
+                if (a != meaningEn.last) {
                   meaningString += ', ';
                 }
               }
 
-              for (var a in kanji[kanjiIndex].readingJaKun) {
+              var readingJaKun = kanji[kanjiIndex].readingJaKun;
+              for (var a in readingJaKun) {
                 readingJaKunString += a;
-                if (a != kanji[kanjiIndex].readingJaKun.last) {
+                if (a != readingJaKun.last) {
                   readingJaKunString += ', ';
                 }
               }
 
-              for (var a in kanji[kanjiIndex].readingJaOn) {
+              var readingJaOn = kanji[kanjiIndex].readingJaOn;
+              for (var a in readingJaOn) {
                 readingJaOnString += a;
-                if (a != kanji[kanjiIndex].readingJaOn.last) {
+                if (a != readingJaOn.last) {
                   readingJaOnString += ', ';
                 }
               }
@@ -91,6 +94,5 @@ class SearchLoadedWidget extends StatelessWidget {
         ],
       ),
     );
-    ;
   }
 }

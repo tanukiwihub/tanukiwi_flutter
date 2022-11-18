@@ -1,18 +1,22 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nagara_app/features/dict/data/queries/kanji.query.dart';
+import 'package:nagara_app/features/dict/data/queries/kanjiPart.query.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../../../common/exceptions/exceptions.dart';
 import '../../../../common/utils/database.util.dart';
 import '../models/kanji.model.dart';
+import '../models/kanjiPart.model.dart';
 import '../queries/searchKanji.query.dart';
 
 abstract class KanjiDataSourceLocal {
   /// Get kanji search results from database
-  Future<List<KanjiSearchResultModel>> searchKanji(String key);
+  Future<List<KanjiModel>> searchKanji(String key);
 
-  Future<KanjiModel> getKanji(int id);
+  Future<KanjiModel> getKanji(int kanjiId);
+
+  Future<List<KanjiPartModel>> getKanjiParts(int kanjiId);
 }
 
 class KanjiDataSourceLocalImpl implements KanjiDataSourceLocal {
@@ -21,19 +25,19 @@ class KanjiDataSourceLocalImpl implements KanjiDataSourceLocal {
   KanjiDataSourceLocalImpl({required this.db});
 
   @override
-  Future<List<KanjiSearchResultModel>> searchKanji(String key) async {
+  Future<List<KanjiModel>> searchKanji(String key) async {
     String query = SearchKanjiRawQuery().query(key);
 
     try {
       List<Map<String, dynamic>> rows = await db.rawQuery(query);
 
       List<List<Map<String, dynamic>>> distinctRows =
-          _createDistinctLists(rows, 'literal');
+          _createDistinctLists(rows, 'k_literal');
 
-      List<KanjiSearchResultModel> result = [];
+      List<KanjiModel> result = [];
 
       for (var distinctRow in distinctRows) {
-        result.add(KanjiSearchResultModel.fromList(distinctRow));
+        result.add(KanjiModel.fromList(distinctRow));
       }
 
       return result;
@@ -44,13 +48,36 @@ class KanjiDataSourceLocalImpl implements KanjiDataSourceLocal {
   }
 
   @override
-  Future<KanjiModel> getKanji(int id) async {
-    String query = KanjiRawQuery().query(id);
+  Future<KanjiModel> getKanji(int kanjiId) async {
+    String query = GetKanjiRawQuery().query(kanjiId);
 
     try {
       List<Map<String, dynamic>> rows = await db.rawQuery(query);
 
       KanjiModel result = KanjiModel.fromList(rows);
+
+      return result;
+    } catch (error) {
+      debugPrint(error.toString());
+      throw DbException();
+    }
+  }
+
+  @override
+  Future<List<KanjiPartModel>> getKanjiParts(int kanjiId) async {
+    String query = GetKanjiPartRawQuery().query(kanjiId);
+
+    try {
+      List<Map<String, dynamic>> rows = await db.rawQuery(query);
+
+      List<List<Map<String, dynamic>>> distinctRows =
+          _createDistinctLists(rows, 'part_pos');
+
+      List<KanjiPartModel> result = [];
+
+      for (var distinctRow in distinctRows) {
+        result.add(KanjiPartModel.fromList(distinctRow));
+      }
 
       return result;
     } catch (error) {
@@ -66,7 +93,7 @@ class KanjiDataSourceLocalImpl implements KanjiDataSourceLocal {
     Map<String, List<Map<String, dynamic>>> groupedLists = {};
 
     for (var item in list) {
-      var groupKey = item[itemKey];
+      var groupKey = item[itemKey].toString();
 
       if (!groupedLists.containsKey(groupKey)) {
         groupedLists[groupKey] = [];

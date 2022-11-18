@@ -1,4 +1,4 @@
-class KanjiDicRefRawQuery {
+class GetKanjiDicRefRawQuery {
   String query(int kanjiId) {
     return '''
 SELECT kanji_dicref.value AS dicRef, kw_kanji_dicref.value AS dicRefType, kanji_dicref.mPage AS mPage, kw_kanji_morohashivol.value as mVol

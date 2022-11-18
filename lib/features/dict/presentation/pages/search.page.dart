@@ -18,7 +18,7 @@ class SearchPage extends StatelessWidget {
           if (state is SearchLoaded) {
             body = SearchLoadedWidget(kanji: state.kanji);
           } else if (state is SearchError) {
-            print('error');
+            debugPrint('error');
           } else if (state is SearchInitial) {
             body = const Text('initial');
           } else if (state is SearchActive) {

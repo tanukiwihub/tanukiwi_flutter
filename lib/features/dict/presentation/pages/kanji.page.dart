@@ -1,35 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nagara_app/features/dict/presentation/controllers/kanji.state.dart';
 
 import '../controllers/kanji.controller.dart';
 
 class KanjiPage extends StatelessWidget {
-  final String literal;
-  final int id;
-  const KanjiPage({Key? key, required this.literal, required this.id})
+  final String kanjiLiteral;
+  final int kanjiId;
+  const KanjiPage({Key? key, required this.kanjiLiteral, required this.kanjiId})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Kanji: $literal'),
+        title: Text('Kanji: $kanjiLiteral'),
       ),
-      body: Column(
-        children: [
-          Text(
-            literal,
-            style: const TextStyle(
-              fontSize: 120,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Text(
+              kanjiLiteral,
+              style: const TextStyle(
+                fontSize: 120,
+              ),
             ),
-          ),
-          Consumer(builder: (context, ref, child) {
-            final state = ref.watch(kanjiPageControllerProvider);
-            ref.read(kanjiPageControllerProvider.notifier).init(kanjiId: id);
+            Consumer(builder: (context, ref, child) {
+              final state = ref.watch(kanjiPageControllerProvider(kanjiId));
 
-            return Text(state.toString());
-          }),
-        ],
+              debugPrint('page rebuild');
+
+              if (state is KanjiLoaded) {
+                return Text(
+                  state.kanji.toString() + state.kanjiParts.toString(),
+                );
+              } else {
+                return const Text('error');
+              }
+            }),
+          ],
+        ),
       ),
     );
   }

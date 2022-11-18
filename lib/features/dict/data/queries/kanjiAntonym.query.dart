@@ -1,4 +1,4 @@
-class KanjiAntonymRawQuery {
+class GetKanjiAntonymRawQuery {
   String query(int kanjiId) {
     return '''
 SELECT kanji.id AS id, kanji.literal AS literal, kw_kanji_strokecount.value AS stroke_count, kanji_meaning.value AS reading

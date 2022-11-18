@@ -1,12 +1,12 @@
-class KanjiRawQuery {
+class GetKanjiRawQuery {
   String query(int kanjiId) {
     return '''
-SELECT kanji.*,
-kanji_misc.freq, kw_kanji_grade.value AS grade, kw_kanji_jlpt.value AS jlpt, kw_kanji_strokecount.value as stroke_count,
-kanji_meaning.value AS meaning, kanji_meaning.position AS meaning_pos, kw_kanji_lang.value as meaning_lang,
-kanji_reading.value AS reading, kanji_reading.position AS reading_pos, kw_kanji_readingtype.value as reading_type,
-kanji_nanori.value AS nanori, kanji_nanori.position AS nanori_pos,
-kanji_querycode.value AS querycode, kw_kanji_querycodetype.value AS querycode_type
+SELECT kanji.id AS k_id, kanji.literal AS k_literal,
+kanji_misc.freq AS k_freq, kw_kanji_grade.value AS k_grade, kw_kanji_jlpt.value AS k_jlpt, kw_kanji_strokecount.value as k_stroke_count,
+kanji_meaning.value AS k_meaning, kanji_meaning.position AS k_meaning_pos, kw_kanji_lang.value as k_meaning_lang,
+kanji_reading.value AS k_reading, kanji_reading.position AS k_reading_pos, kw_kanji_readingtype.value as k_reading_type,
+kanji_nanori.value AS k_nanori, kanji_nanori.position AS k_nanori_pos,
+kanji_querycode.value AS k_querycode, kw_kanji_querycodetype.value AS k_querycode_type
 
 FROM kanji 
  

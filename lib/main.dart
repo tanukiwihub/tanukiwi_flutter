@@ -56,10 +56,10 @@ class MyApp extends StatelessWidget {
               name: 'kanji',
               path: "kanji/:id/:literal",
               builder: (BuildContext context, GoRouterState state) => KanjiPage(
-                id: int.parse(
+                kanjiId: int.parse(
                   state.params["id"]!,
                 ),
-                literal: state.params["literal"]!,
+                kanjiLiteral: state.params["literal"]!,
               ),
             ),
           ]),
