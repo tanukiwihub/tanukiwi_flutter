@@ -10,4 +10,6 @@ abstract class KanjiRepository {
   Future<Either<Failure, Kanji>> getKanji(int kanjiId);
 
   Future<Either<Failure, List<KanjiPart>>> getKanjiParts(int kanjiId);
+
+  Future<Either<Failure, List<Kanji>>> getKanjiLookalikes(int kanjiId);
 }

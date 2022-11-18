@@ -1,7 +1,7 @@
 class GetKanjiLookalikeRawQuery {
   String query(int kanjiId) {
     return '''
-SELECT kanji.id AS id, kanji.literal AS literal, kw_kanji_strokecount.value AS stroke_count, kanji_meaning.value AS reading
+SELECT kanji.id AS k_id, kanji.literal AS k_literal, kw_kanji_strokecount.value AS k_stroke_count, kanji_meaning.value AS k_meaning, kanji_meaning.position AS k_meaning_pos
 
 FROM kanji_lookalike
 
@@ -13,9 +13,9 @@ JOIN kw_kanji_strokecount ON kw_kanji_strokecount.id = kanji_misc.strokeCount_id
 JOIN kanji_meaning ON kanji_meaning.kanji_id = kanji.id
 JOIN kw_kanji_lang ON kw_kanji_lang.id = kanji_meaning.kwLang_id AND  kw_kanji_lang.value = 'en'
 
-WHERE kanji_lookalike.kanji_id = 1763
+WHERE kanji_lookalike.kanji_id = $kanjiId
 
-ORDER BY kanji_misc.freq ASC NULLS LAST, kanji_meaning.position
+ORDER BY kanji_misc.freq
 ''';
   }
 }

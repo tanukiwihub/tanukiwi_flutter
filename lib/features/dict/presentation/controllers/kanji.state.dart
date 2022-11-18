@@ -19,10 +19,12 @@ class KanjiLoading extends KanjiState {
 class KanjiLoaded extends KanjiState {
   final Kanji kanji;
   final List<KanjiPart> kanjiParts;
+  final List<Kanji> kanjiLookalikes;
 
   KanjiLoaded({
     required this.kanji,
     required this.kanjiParts,
+    required this.kanjiLookalikes,
   });
 
   @override

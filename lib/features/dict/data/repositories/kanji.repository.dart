@@ -36,6 +36,16 @@ class KanjiRepositoryImpl implements KanjiRepository {
   }
 
   @override
+  Future<Either<Failure, List<Kanji>>> getKanjiLookalikes(int kanjiId) async {
+    try {
+      final kanjiLookalikes = await dataSourceLocal.getKanjiLookalikes(kanjiId);
+      return Right(kanjiLookalikes);
+    } on DbException {
+      return Left(DbFailure());
+    }
+  }
+
+  @override
   Future<Either<Failure, Kanji>> getKanji(int kanjiId) async {
     try {
       final kanji = await dataSourceLocal.getKanji(kanjiId);

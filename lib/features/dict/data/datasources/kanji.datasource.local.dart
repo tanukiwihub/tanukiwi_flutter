@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nagara_app/features/dict/data/queries/kanji.query.dart';
+import 'package:nagara_app/features/dict/data/queries/kanjiLookalike.query.dart';
 import 'package:nagara_app/features/dict/data/queries/kanjiPart.query.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -17,6 +18,8 @@ abstract class KanjiDataSourceLocal {
   Future<KanjiModel> getKanji(int kanjiId);
 
   Future<List<KanjiPartModel>> getKanjiParts(int kanjiId);
+
+  Future<List<KanjiModel>> getKanjiLookalikes(int kanjiId);
 }
 
 class KanjiDataSourceLocalImpl implements KanjiDataSourceLocal {
@@ -77,6 +80,29 @@ class KanjiDataSourceLocalImpl implements KanjiDataSourceLocal {
 
       for (var distinctRow in distinctRows) {
         result.add(KanjiPartModel.fromList(distinctRow));
+      }
+
+      return result;
+    } catch (error) {
+      debugPrint(error.toString());
+      throw DbException();
+    }
+  }
+
+  @override
+  Future<List<KanjiModel>> getKanjiLookalikes(int kanjiId) async {
+    String query = GetKanjiLookalikeRawQuery().query(kanjiId);
+
+    try {
+      List<Map<String, dynamic>> rows = await db.rawQuery(query);
+
+      List<List<Map<String, dynamic>>> distinctRows =
+          _createDistinctLists(rows, 'k_id');
+
+      List<KanjiModel> result = [];
+
+      for (var distinctRow in distinctRows) {
+        result.add(KanjiModel.fromList(distinctRow));
       }
 
       return result;
