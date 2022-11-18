@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart' as p;
 import 'package:sqflite/sqflite.dart';
 
-import '../constants/nagara_db.constants.dart';
+import '../constants/db.constants.dart';
 
 class DatabaseUtil {
   late final Database database;

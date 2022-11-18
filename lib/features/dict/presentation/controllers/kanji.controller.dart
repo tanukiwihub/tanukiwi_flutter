@@ -1,11 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../data/repositories/kanji.repository.dart';
-import '../../domain/repositories/kanji.repository.dart';
+import '../../data/repositories/tkdb.repository.dart';
+import '../../domain/repositories/tkdb.repository.dart';
 import 'kanji.state.dart';
 
 class KanjiPageController extends StateNotifier<KanjiState> {
-  final KanjiRepository _kanjiRepository;
+  final TKDBrepository _kanjiRepository;
   final int _kanjiId;
 
   KanjiPageController(this._kanjiRepository, this._kanjiId)
@@ -30,7 +30,7 @@ final kanjiPageControllerProvider =
     StateNotifierProvider.family<KanjiPageController, KanjiState, int>(
         (ref, kanjiId) {
   return KanjiPageController(
-    ref.watch(kanjiRespositoryProvider),
+    ref.watch(tkdbRespositoryProvider),
     kanjiId,
   );
 });

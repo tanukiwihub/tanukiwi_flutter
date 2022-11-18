@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nagara_app/features/dict/presentation/controllers/kanji.state.dart';
 
 import '../controllers/kanji.controller.dart';
+import '../controllers/kanji.state.dart';
 
 class KanjiPage extends StatelessWidget {
   final String kanjiLiteral;

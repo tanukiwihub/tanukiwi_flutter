@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../data/repositories/kanji.repository.dart';
-import '../../domain/repositories/kanji.repository.dart';
+import '../../data/repositories/tkdb.repository.dart';
+import '../../domain/repositories/tkdb.repository.dart';
 import 'search.state.dart';
 
 class SearchPageController extends StateNotifier<SearchState> {
-  final KanjiRepository _kanjiRepository;
+  final TKDBrepository _kanjiRepository;
 
   final FocusNode searchFieldFocus = FocusNode();
   final TextEditingController searchFieldController = TextEditingController();
@@ -60,6 +60,6 @@ class SearchPageController extends StateNotifier<SearchState> {
 final searchPageControllerProvider =
     StateNotifierProvider<SearchPageController, SearchState>((ref) {
   return SearchPageController(
-    ref.watch(kanjiRespositoryProvider),
+    ref.watch(tkdbRespositoryProvider),
   );
 });
