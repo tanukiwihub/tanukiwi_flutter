@@ -7,5 +7,7 @@ ThemeData getTKXDmaterialTheme(BuildContext context) {
   return ThemeData(
     useMaterial3: true,
     scaffoldBackgroundColor: TKXDtheme.of(context).color.bgPrimary,
+    brightness:
+        TKXDtheme.of(context).isDark ? Brightness.dark : Brightness.light,
   );
 }
