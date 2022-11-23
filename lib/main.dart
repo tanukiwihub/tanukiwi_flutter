@@ -45,20 +45,23 @@ class MyApp extends StatelessWidget {
     routes: <GoRoute>[
       GoRoute(
           path: "/",
-          builder: (BuildContext context, GoRouterState state) {
+          builder: (context, state) {
             return const DictPage();
           },
           routes: <GoRoute>[
             GoRoute(
               path: "search",
-              builder: (BuildContext context, GoRouterState state) {
-                return const SearchPage();
+              pageBuilder: (context, state) {
+                return NoTransitionPage(
+                  key: state.pageKey,
+                  child: const SearchPage(),
+                );
               },
             ),
             GoRoute(
               name: "kanji",
               path: "kanji/:id/:literal",
-              builder: (BuildContext context, GoRouterState state) => KanjiPage(
+              builder: (context, state) => KanjiPage(
                 kanjiId: int.parse(
                   state.params["id"]!,
                 ),
