@@ -16,29 +16,17 @@ class KanjiPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Kanji: $kanjiLiteral'),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Text(
-              kanjiLiteral,
-              style: const TextStyle(
-                fontSize: 120,
-              ),
-            ),
-            Consumer(builder: (context, ref, child) {
-              final state = ref.watch(kanjiPageControllerProvider(kanjiId));
+      body: Consumer(builder: (context, ref, child) {
+        final state = ref.watch(kanjiPageControllerProvider(kanjiId));
 
-              if (state is KanjiLoaded) {
-                return Text(
-                  state.kanji.toString(),
-                );
-              } else {
-                return const Text('error');
-              }
-            }),
-          ],
-        ),
-      ),
+        if (state is KanjiLoaded) {
+          return Text(
+            state.kanji.toString(),
+          );
+        } else {
+          return const Text('error');
+        }
+      }),
     );
   }
 }

@@ -16,77 +16,79 @@ class SearchLoadedWidget extends StatelessWidget {
           child: Text('${kanji.length.toString()} kanji'),
         ),
         SliverList(
-          delegate:
-              SliverChildBuilderDelegate((BuildContext context, int index) {
-            String meaningString = '';
-            String readingJaKunString = '';
-            String readingJaOnString = '';
+          delegate: SliverChildBuilderDelegate(
+            (BuildContext context, int index) {
+              String meaningString = '';
+              String readingJaKunString = '';
+              String readingJaOnString = '';
 
-            var meaningEn = kanji[index].meaningEn;
-            for (var a in meaningEn) {
-              meaningString += a;
-              if (a != meaningEn.last) {
-                meaningString += ', ';
+              var meaningEn = kanji[index].meaningEn;
+              for (var a in meaningEn) {
+                meaningString += a;
+                if (a != meaningEn.last) {
+                  meaningString += ', ';
+                }
               }
-            }
 
-            var readingJaKun = kanji[index].readingJaKun;
-            for (var a in readingJaKun) {
-              readingJaKunString += a;
-              if (a != readingJaKun.last) {
-                readingJaKunString += ', ';
+              var readingJaKun = kanji[index].readingJaKun;
+              for (var a in readingJaKun) {
+                readingJaKunString += a;
+                if (a != readingJaKun.last) {
+                  readingJaKunString += ', ';
+                }
               }
-            }
 
-            var readingJaOn = kanji[index].readingJaOn;
-            for (var a in readingJaOn) {
-              readingJaOnString += a;
-              if (a != readingJaOn.last) {
-                readingJaOnString += ', ';
+              var readingJaOn = kanji[index].readingJaOn;
+              for (var a in readingJaOn) {
+                readingJaOnString += a;
+                if (a != readingJaOn.last) {
+                  readingJaOnString += ', ';
+                }
               }
-            }
 
-            return ListTile(
-              title: Text(
-                kanji[index].literal,
-              ),
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    meaningString,
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: readingJaKunString,
-                        ),
-                        TextSpan(
-                          text: readingJaKunString != '' &&
-                                  readingJaOnString != ''
-                              ? ' • '
-                              : '',
-                        ),
-                        TextSpan(
-                          text: readingJaOnString,
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              onTap: () => {
-                context.goNamed(
-                  "kanji",
-                  params: {
-                    "literal": kanji[index].literal,
-                    "id": kanji[index].id.toString(),
-                  },
+              return ListTile(
+                title: Text(
+                  kanji[index].literal,
                 ),
-              },
-            );
-          }),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      meaningString,
+                    ),
+                    RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: readingJaKunString,
+                          ),
+                          TextSpan(
+                            text: readingJaKunString != '' &&
+                                    readingJaOnString != ''
+                                ? ' • '
+                                : '',
+                          ),
+                          TextSpan(
+                            text: readingJaOnString,
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+                onTap: () => {
+                  context.goNamed(
+                    "kanji",
+                    params: {
+                      "literal": kanji[index].literal,
+                      "id": kanji[index].id.toString(),
+                    },
+                  ),
+                },
+              );
+            },
+            childCount: kanji.length,
+          ),
         )
       ],
     );

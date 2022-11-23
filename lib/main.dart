@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import 'common/theme/materialTheme.data.dart';
+import 'common/theme/theme.widget.dart';
 import 'common/utils/database.util.dart';
 import 'features/dict/presentation/pages/kanji.page.dart';
-import 'features/dict/presentation/pages/search.page.dart';
+import 'features/dict/presentation/pages/searchMain.page.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +19,9 @@ Future main() async {
       overrides: [
         databaseUtilProvider.overrideWithValue(databaseUtil),
       ],
-      child: MyApp(),
+      child: TKXDtheme(
+        child: MyApp(),
+      ),
     ),
   );
 }
@@ -30,15 +34,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        brightness: Brightness.light,
-        useMaterial3: true,
-      ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        useMaterial3: true,
-      ),
-      themeMode: ThemeMode.system,
+      theme: getTKXDmaterialTheme(context),
       debugShowCheckedModeBanner: false,
       routerConfig: _router,
     );
@@ -49,7 +45,7 @@ class MyApp extends StatelessWidget {
       GoRoute(
           path: '/',
           builder: (BuildContext context, GoRouterState state) {
-            return const SearchPage();
+            return const SearchMainPage();
           },
           routes: <GoRoute>[
             GoRoute(
