@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tanukiwi/features/dict/presentation/controllers/dict.controller.dart';
 
 import '../../../../common/theme/theme.widget.dart';
 import '../widgets/searchField.widget.dart';
 
-class SearchMainPage extends StatelessWidget {
-  const SearchMainPage({super.key});
+class DictPage extends StatelessWidget {
+  const DictPage({super.key});
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -18,7 +20,15 @@ class SearchMainPage extends StatelessWidget {
                   TKXDtheme.of(context).pagePaddingX,
                   0,
                 ),
-                child: const SearchFieldWidget(),
+                child: Consumer(
+                  builder: (context, ref, child) {
+                    return SearchFieldWidget(
+                      onTap: () => ref
+                          .read(dictPageControllerProvider.notifier)
+                          .onSearchFieldTap(context),
+                    );
+                  },
+                ),
               ),
             ],
           ),

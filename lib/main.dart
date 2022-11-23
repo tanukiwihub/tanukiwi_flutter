@@ -1,12 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:go_router/go_router.dart";
+import "package:tanukiwi/features/dict/presentation/pages/search.page.dart";
 
-import 'common/theme/materialTheme.data.dart';
-import 'common/theme/theme.widget.dart';
-import 'common/utils/database.util.dart';
-import 'features/dict/presentation/pages/kanji.page.dart';
-import 'features/dict/presentation/pages/searchMain.page.dart';
+import "common/theme/materialTheme.data.dart";
+import "common/theme/theme.widget.dart";
+import "common/utils/database.util.dart";
+import "features/dict/presentation/pages/dict.page.dart";
+import "features/dict/presentation/pages/kanji.page.dart";
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Flutter Demo',
+      title: "Flutter Demo",
       theme: getTKXDmaterialTheme(context),
       debugShowCheckedModeBanner: false,
       routerConfig: _router,
@@ -43,13 +44,19 @@ class MyApp extends StatelessWidget {
   final GoRouter _router = GoRouter(
     routes: <GoRoute>[
       GoRoute(
-          path: '/',
+          path: "/",
           builder: (BuildContext context, GoRouterState state) {
-            return const SearchMainPage();
+            return const DictPage();
           },
           routes: <GoRoute>[
             GoRoute(
-              name: 'kanji',
+              path: "search",
+              builder: (BuildContext context, GoRouterState state) {
+                return const SearchPage();
+              },
+            ),
+            GoRoute(
+              name: "kanji",
               path: "kanji/:id/:literal",
               builder: (BuildContext context, GoRouterState state) => KanjiPage(
                 kanjiId: int.parse(
