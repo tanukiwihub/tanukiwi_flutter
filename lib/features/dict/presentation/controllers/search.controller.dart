@@ -24,6 +24,8 @@ class SearchPageController extends StateNotifier<SearchState> {
     searchFieldController.addListener(_onSearchFieldChange);
   }
 
+  CancelableOperation<Either<Failure, List<Kanji>>>? _cancelableSearch;
+
   Future<void> _onSearchFieldChange() async {
     await _cancelableSearch?.cancel();
     if (searchFieldController.text.isEmpty) {
@@ -53,8 +55,6 @@ class SearchPageController extends StateNotifier<SearchState> {
     searchFieldController.clear();
     searchFieldFocus.requestFocus();
   }
-
-  CancelableOperation<Either<Failure, List<Kanji>>>? _cancelableSearch;
 }
 
 final searchPageControllerProvider =

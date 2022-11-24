@@ -23,7 +23,7 @@ class TKXDtheme extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(builder: ((context, ref, consumerChild) {
       final TKXDthemeData themeData = TKXDthemeData(
-        isDark: ref.watch(platormBrignthessServiceProvider) == Brightness.dark,
+        brightness: ref.watch(platormBrignthessServiceProvider),
       );
 
       return _InheritedTKXDtheme(

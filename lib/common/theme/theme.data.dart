@@ -5,9 +5,11 @@ import 'styles/color.style.dart';
 import 'styles/text.style.dart';
 
 class TKXDthemeData {
-  final bool isDark;
+  final Brightness brightness;
 
-  TKXDthemeData({required this.isDark});
+  TKXDthemeData({required this.brightness});
+
+  late final bool isDark = brightness == Brightness.dark;
 
   // Colors
   late final TKXDcolors color = TKXDcolors(isDark: isDark);
