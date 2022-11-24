@@ -24,7 +24,12 @@ class TKXDappBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: TKXDtheme.of(context).appBarColor,
+      decoration: BoxDecoration(
+        color: TKXDtheme.of(context).appBarColor,
+        border: Border(
+          bottom: TKXDtheme.of(context).appBarBorderBottom,
+        ),
+      ),
       child: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(

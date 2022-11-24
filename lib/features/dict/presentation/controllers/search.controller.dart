@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../data/repositories/tkdb.repository.dart';
 import '../../domain/repositories/tkdb.repository.dart';
@@ -17,7 +18,6 @@ class SearchPageController extends StateNotifier<SearchState> {
 
   void _init() {
     searchFieldController.addListener(_onSearchFieldChange);
-    searchFieldFocus.addListener(_onSearchFieldFocus);
   }
 
   void _onSearchFieldChange() {
@@ -28,20 +28,15 @@ class SearchPageController extends StateNotifier<SearchState> {
     }
   }
 
-  void _onSearchFieldFocus() {
-    if (searchFieldFocus.hasFocus && searchFieldController.text.isEmpty) {
-      state = const SearchInitial();
-    }
-  }
-
-  void cancelSearch() {
-    searchFieldController.clear();
-    searchFieldFocus.unfocus();
-    state = const SearchInitial();
+  void navigateBack(BuildContext context) {
+    context.go(
+      "/",
+    );
   }
 
   void clearSearch() {
     searchFieldController.clear();
+    searchFieldFocus.requestFocus();
   }
 
   Future<void> _searchKanji(String key) async {

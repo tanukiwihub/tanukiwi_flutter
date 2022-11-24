@@ -19,8 +19,6 @@ class SearchPage extends StatelessWidget {
 
           if (state is SearchLoaded) {
             body = SearchLoadedWidget(kanji: state.kanji);
-          } else if (state is SearchError) {
-            debugPrint('error');
           } else if (state is SearchInitial) {
             body = const Text('initial');
           } else {
@@ -32,7 +30,9 @@ class SearchPage extends StatelessWidget {
               parentContext: context,
               leadingIcon: IconButton(
                 icon: const Icon(Icons.arrow_back_ios_new),
-                onPressed: () => {},
+                onPressed: () => ref
+                    .read(searchPageControllerProvider.notifier)
+                    .navigateBack(context),
               ),
               title: TextField(
                 style: TKXDtheme.of(context).defaultTextStyle,

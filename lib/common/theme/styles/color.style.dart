@@ -18,10 +18,10 @@ class TKXDcolors {
       ? const Color.fromRGBO(8, 8, 12, 1)
       : const Color.fromRGBO(255, 255, 255, 1);
 
-  late final bgPrimaryElevated = const Color.fromRGBO(32, 32, 37, 1);
+  late final Color bgPrimaryElevated = const Color.fromRGBO(32, 32, 37, 1);
 
   // Separator
-  static const separator = Color.fromRGBO(60, 60, 64, 1);
+  late final Color separator = const Color.fromRGBO(60, 60, 64, 1);
   static const separatorTransparent = Color.fromRGBO(90, 90, 93, .65);
   // Fill
   static const fillPrimary = Color.fromRGBO(125, 125, 128, .36);

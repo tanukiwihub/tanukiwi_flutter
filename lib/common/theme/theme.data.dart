@@ -29,9 +29,13 @@ class TKXDthemeData {
   // App Bar
 
   final double appBarHeight = 64.0;
-  late final Color appBarColor = color.bgPrimaryElevated;
+  late final Color appBarColor = color.bgPrimary;
   late final double appBarPaddingX = space(.25);
   late final double appBarTitlePaddingX = space(.375);
+  late final BorderSide appBarBorderBottom = BorderSide(
+    width: .5,
+    color: color.separator,
+  );
 
   // Text Field
   late final Color cursorColor = focusColor;
