@@ -18,7 +18,7 @@ class TKXDcolors {
       ? const Color.fromRGBO(8, 8, 12, 1)
       : const Color.fromRGBO(255, 255, 255, 1);
 
-  static const bgPrimaryElevated = Color.fromRGBO(32, 32, 37, 1);
+  late final bgPrimaryElevated = const Color.fromRGBO(32, 32, 37, 1);
 
   // Separator
   static const separator = Color.fromRGBO(60, 60, 64, 1);
@@ -30,7 +30,7 @@ class TKXDcolors {
   static const fillQuarternary = Color.fromRGBO(120, 120, 122, .18);
   // System
   static const blue = Color.fromRGBO(75, 141, 247, 1);
-  static const indigo = Color.fromRGBO(92, 107, 192, 1);
+  late final indigo = const Color.fromRGBO(92, 107, 192, 1);
   // Highlight
   static const highlightGray = Color.fromRGBO(191, 193, 200, 1);
   static const highlightRed = Color.fromRGBO(239, 135, 143, 1);

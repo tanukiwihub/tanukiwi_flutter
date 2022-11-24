@@ -15,14 +15,6 @@ class SearchInitial extends SearchState {
   const SearchInitial();
 }
 
-class SearchActive extends SearchState {
-  const SearchActive();
-}
-
-class SearchLoading extends SearchState {
-  const SearchLoading();
-}
-
 class SearchLoaded extends SearchState {
   final List<Kanji> kanji;
 

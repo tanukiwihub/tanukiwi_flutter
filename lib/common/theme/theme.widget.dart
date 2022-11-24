@@ -28,10 +28,7 @@ class TKXDtheme extends StatelessWidget {
 
       return _InheritedTKXDtheme(
         themeData: themeData,
-        child: DefaultTextStyle(
-          style: themeData.defaultTextStyle,
-          child: child,
-        ),
+        child: child,
       );
     }));
   }

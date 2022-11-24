@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tanukiwi/common/theme/theme.widget.dart';
+import 'package:tanukiwi/common/theme/widgets/appbar.widget.dart';
 
 import '../controllers/search.controller.dart';
 import '../controllers/search.state.dart';
@@ -21,16 +23,21 @@ class SearchPage extends StatelessWidget {
             debugPrint('error');
           } else if (state is SearchInitial) {
             body = const Text('initial');
-          } else if (state is SearchActive) {
-            body = const Text('active');
-          } else if (state is SearchLoading) {
           } else {
             body = const Text('error');
           }
 
           return Scaffold(
-            appBar: AppBar(
+            appBar: TKXDappBar(
+              parentContext: context,
+              leadingIcon: IconButton(
+                icon: const Icon(Icons.arrow_back_ios_new),
+                onPressed: () => {},
+              ),
               title: TextField(
+                style: TKXDtheme.of(context).defaultTextStyle,
+                cursorColor: TKXDtheme.of(context).cursorColor,
+                autofocus: true,
                 controller: ref
                     .read(searchPageControllerProvider.notifier)
                     .searchFieldController,
@@ -38,14 +45,6 @@ class SearchPage extends StatelessWidget {
                     .read(searchPageControllerProvider.notifier)
                     .searchFieldFocus,
                 decoration: InputDecoration(
-                  prefixIcon: state is SearchInitial
-                      ? const Icon(Icons.search)
-                      : IconButton(
-                          onPressed: ref
-                              .read(searchPageControllerProvider.notifier)
-                              .cancelSearch,
-                          icon: const Icon(Icons.arrow_back),
-                        ),
                   suffixIcon: ref
                           .read(searchPageControllerProvider.notifier)
                           .searchFieldController
@@ -55,9 +54,11 @@ class SearchPage extends StatelessWidget {
                           onPressed: ref
                               .read(searchPageControllerProvider.notifier)
                               .clearSearch,
-                          icon: const Icon(Icons.cancel),
+                          icon: const Icon(Icons.close),
                         )
                       : null,
+                  border: InputBorder.none,
+                  hintText: 'Search',
                 ),
               ),
             ),

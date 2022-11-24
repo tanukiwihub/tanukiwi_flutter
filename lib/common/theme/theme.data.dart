@@ -11,6 +11,7 @@ class TKXDthemeData {
 
   // Colors
   late final TKXDcolors color = TKXDcolors(isDark: isDark);
+  late final Color focusColor = color.indigo;
 
   // Typography
   late final TKXDtextStyles text = TKXDtextStyles(
@@ -24,4 +25,20 @@ class TKXDthemeData {
   // Misc
   final double pagePaddingX = 16.0;
   final double touchHeight = 48.0;
+
+  // App Bar
+
+  final double appBarHeight = 64.0;
+  late final Color appBarColor = color.bgPrimaryElevated;
+  late final double appBarPaddingX = space(.25);
+  late final double appBarTitlePaddingX = space(.375);
+
+  // Text Field
+  late final Color cursorColor = focusColor;
+
+  // Input
+
+  late final TextStyle hintStyle = text.body.copyWith(
+    color: color.labelSecondary,
+  );
 }

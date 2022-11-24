@@ -22,18 +22,15 @@ class SearchPageController extends StateNotifier<SearchState> {
 
   void _onSearchFieldChange() {
     if (searchFieldController.text.isEmpty) {
-      state = const SearchActive();
+      state = const SearchInitial();
     } else {
-      if (state is SearchActive) {
-        state = const SearchLoading();
-      }
       _searchKanji(searchFieldController.text);
     }
   }
 
   void _onSearchFieldFocus() {
     if (searchFieldFocus.hasFocus && searchFieldController.text.isEmpty) {
-      state = const SearchActive();
+      state = const SearchInitial();
     }
   }
 
@@ -58,7 +55,7 @@ class SearchPageController extends StateNotifier<SearchState> {
 }
 
 final searchPageControllerProvider =
-    StateNotifierProvider<SearchPageController, SearchState>((ref) {
+    StateNotifierProvider.autoDispose<SearchPageController, SearchState>((ref) {
   return SearchPageController(
     ref.watch(tkdbRespositoryProvider),
   );
