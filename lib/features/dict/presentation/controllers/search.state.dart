@@ -13,6 +13,9 @@ abstract class SearchState with EquatableMixin {
 
 class SearchInitial extends SearchState {
   const SearchInitial();
+
+  @override
+  List<Object> get props => [];
 }
 
 class SearchLoaded extends SearchState {

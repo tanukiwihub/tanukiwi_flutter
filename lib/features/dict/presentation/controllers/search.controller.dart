@@ -1,8 +1,12 @@
+import 'package:async/async.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../common/exceptions/failures.dart';
 import '../../data/repositories/tkdb.repository.dart';
+import '../../domain/entities/kanji.entity.dart';
 import '../../domain/repositories/tkdb.repository.dart';
 import 'search.state.dart';
 
@@ -20,11 +24,22 @@ class SearchPageController extends StateNotifier<SearchState> {
     searchFieldController.addListener(_onSearchFieldChange);
   }
 
-  void _onSearchFieldChange() {
+  Future<void> _onSearchFieldChange() async {
+    await _cancelableSearch?.cancel();
     if (searchFieldController.text.isEmpty) {
       state = const SearchInitial();
     } else {
-      _searchKanji(searchFieldController.text);
+      _cancelableSearch = CancelableOperation.fromFuture(
+        _kanjiRepository.searchKanji(searchFieldController.text),
+      );
+      final result = await _cancelableSearch?.value;
+      if (result != null) {
+        result.fold((failure) {
+          state = const SearchError('');
+        }, (success) {
+          state = SearchLoaded(kanji: success);
+        });
+      }
     }
   }
 
@@ -39,14 +54,7 @@ class SearchPageController extends StateNotifier<SearchState> {
     searchFieldFocus.requestFocus();
   }
 
-  Future<void> _searchKanji(String key) async {
-    final result = await _kanjiRepository.searchKanji(key);
-    result.fold((failure) {
-      state = const SearchError('');
-    }, (success) {
-      state = SearchLoaded(kanji: success);
-    });
-  }
+  CancelableOperation<Either<Failure, List<Kanji>>>? _cancelableSearch;
 }
 
 final searchPageControllerProvider =
