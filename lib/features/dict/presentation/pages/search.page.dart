@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tanukiwi/common/theme/theme.widget.dart';
-import 'package:tanukiwi/common/theme/widgets/appbar.widget.dart';
+import 'package:tanukiwi/common/theme/widgets/appBar.widget.dart';
 
+import '../../../../common/theme/widgets/iconButton.widget.dart';
 import '../controllers/search.controller.dart';
 import '../controllers/search.state.dart';
 import '../widgets/searchLoaded.widget.dart';
@@ -28,7 +29,7 @@ class SearchPage extends StatelessWidget {
           return Scaffold(
             appBar: TKXDappBar(
               parentContext: context,
-              leadingIcon: IconButton(
+              leadingIcon: TKXDiconButtonWidget(
                 icon: const Icon(Icons.arrow_back_ios_new),
                 onPressed: () => ref
                     .read(searchPageControllerProvider.notifier)
@@ -50,11 +51,14 @@ class SearchPage extends StatelessWidget {
                           .searchFieldController
                           .text
                           .isNotEmpty
-                      ? IconButton(
+                      ? TKXDiconButtonWidget(
                           onPressed: ref
                               .read(searchPageControllerProvider.notifier)
                               .clearSearch,
-                          icon: const Icon(Icons.close),
+                          icon: Icon(
+                            Icons.close,
+                            color: TKXDtheme.of(context).iconColor,
+                          ),
                         )
                       : null,
                   border: InputBorder.none,

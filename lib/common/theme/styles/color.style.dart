@@ -7,6 +7,9 @@ class TKXDcolors {
     required this.isDark,
   });
 
+  // Ref
+  late final white = const Color.fromRGBO(255, 255, 255, 1);
+
   // Label
   late final labelPrimary = const Color.fromRGBO(255, 255, 255, 1);
   late final labelSecondary = const Color.fromRGBO(240, 240, 245, .6);

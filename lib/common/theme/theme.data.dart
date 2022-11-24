@@ -25,6 +25,8 @@ class TKXDthemeData {
   // Misc
   final double pagePaddingX = 16.0;
   final double touchHeight = 48.0;
+  final double hoverTransparency = .07;
+  late final Color hoverColor = color.white.withOpacity(hoverTransparency);
 
   // App Bar
 
@@ -36,6 +38,9 @@ class TKXDthemeData {
     width: .5,
     color: color.separator,
   );
+
+  // Icon
+  late final Color iconColor = color.labelSecondary;
 
   // Text Field
   late final Color cursorColor = focusColor;

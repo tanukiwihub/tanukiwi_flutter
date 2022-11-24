@@ -6,6 +6,5 @@ import '../theme.widget.dart';
 InputDecorationTheme getInputDecorationTheme(BuildContext context) {
   return InputDecorationTheme(
     hintStyle: TKXDtheme.of(context).hintStyle,
-    border: InputBorder.none,
   );
 }

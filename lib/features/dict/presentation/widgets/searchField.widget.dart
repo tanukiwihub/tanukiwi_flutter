@@ -22,9 +22,10 @@ class SearchFieldWidget extends StatelessWidget {
         ),
         child: Row(
           children: <Widget>[
-            IconButton(
-              onPressed: () {},
-              icon: Icon(
+            SizedBox(
+              height: TKXDtheme.of(context).touchHeight,
+              width: TKXDtheme.of(context).touchHeight,
+              child: Icon(
                 Icons.search,
                 color: TKXDtheme.of(context).color.labelSecondary,
               ),
