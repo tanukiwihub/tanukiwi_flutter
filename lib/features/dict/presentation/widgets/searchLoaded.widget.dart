@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../common/theme/theme.widget.dart';
 import '../../domain/entities/kanji.entity.dart';
 
 class SearchLoadedWidget extends StatelessWidget {
@@ -10,10 +11,27 @@ class SearchLoadedWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String resultText =
+        '${kanji.length.toString()} result${kanji.length > 1 ? 's' : ''} in kanji'
+            .toUpperCase();
+
     return CustomScrollView(
       slivers: [
         SliverToBoxAdapter(
-          child: Text('${kanji.length.toString()} kanji'),
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(
+              TKXDtheme.of(context).pagePaddingX,
+              TKXDtheme.of(context).space(1.0),
+              TKXDtheme.of(context).pagePaddingX,
+              TKXDtheme.of(context).space(.5),
+            ),
+            child: Text(
+              resultText,
+              style: TKXDtheme.of(context).text.caption1.copyWith(
+                    color: TKXDtheme.of(context).color.labelSecondary,
+                  ),
+            ),
+          ),
         ),
         SliverList(
           delegate: SliverChildBuilderDelegate(

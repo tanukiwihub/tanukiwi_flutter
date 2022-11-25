@@ -20,7 +20,9 @@ class SearchPage extends StatelessWidget {
           Widget body = Container();
 
           if (state is SearchLoaded) {
-            body = SearchLoadedWidget(kanji: state.kanji);
+            body = state.kanji.isNotEmpty
+                ? SearchLoadedWidget(kanji: state.kanji)
+                : const Text('No kanji');
           } else if (state is SearchInitial) {
             body = const Text('initial');
           } else {
