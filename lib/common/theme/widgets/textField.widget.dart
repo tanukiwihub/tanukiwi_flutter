@@ -8,6 +8,7 @@ class TKXDtextFieldWidget extends StatefulWidget {
   final bool? autofocus;
   final Widget? suffixIcon;
   final String? placeholder;
+  final ValueChanged<String>? onChanged;
 
   const TKXDtextFieldWidget({
     Key? key,
@@ -16,6 +17,7 @@ class TKXDtextFieldWidget extends StatefulWidget {
     this.suffixIcon,
     this.autofocus,
     this.placeholder,
+    this.onChanged,
   }) : super(key: key);
 
   @override
@@ -60,6 +62,7 @@ class _TKXDtextFieldWidgetState extends State<TKXDtextFieldWidget> {
                     textAlign: TextAlign.start,
                     controller: widget.controller,
                     onChanged: (value) {
+                      widget.onChanged?.call(value);
                       setState(() {
                         showPlaceholder = value.isNotEmpty;
                       });

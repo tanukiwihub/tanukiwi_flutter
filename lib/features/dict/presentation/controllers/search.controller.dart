@@ -16,7 +16,8 @@ class SearchPageController extends StateNotifier<SearchState> {
   final FocusNode searchFieldFocus = FocusNode();
   final TextEditingController searchFieldController = TextEditingController();
 
-  SearchPageController(this._kanjiRepository) : super(const SearchInitial()) {
+  SearchPageController(this._kanjiRepository)
+      : super(const SearchInitial(isActive: false)) {
     _init();
   }
 
@@ -24,13 +25,20 @@ class SearchPageController extends StateNotifier<SearchState> {
     searchFieldController.addListener(_onSearchFieldChange);
   }
 
+  bool isActive = false;
+
   CancelableOperation<Either<Failure, List<Kanji>>>? _cancelableSearch;
 
   Future<void> _onSearchFieldChange() async {
     await _cancelableSearch?.cancel();
     if (searchFieldController.text.isEmpty) {
-      state = const SearchInitial();
+      isActive = false;
+      state = const SearchInitial(isActive: false);
     } else {
+      if (state is SearchInitial) {
+        state = const SearchInitial(isActive: true);
+      }
+      isActive = true;
       _cancelableSearch = CancelableOperation.fromFuture(
         _kanjiRepository.searchKanji(searchFieldController.text),
       );

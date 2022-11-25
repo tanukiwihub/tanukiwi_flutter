@@ -16,6 +16,7 @@ class SearchPage extends StatelessWidget {
   Widget build(BuildContext context) => Consumer(
         builder: (context, ref, child) {
           final state = ref.watch(searchPageControllerProvider);
+          final notifier = ref.watch(searchPageControllerProvider.notifier);
 
           Widget body = Container();
 
@@ -32,25 +33,16 @@ class SearchPage extends StatelessWidget {
               parentContext: context,
               leadingIcon: TKXDiconButtonWidget(
                 icon: const Icon(Icons.arrow_back_ios_new),
-                onPressed: () => ref
-                    .read(searchPageControllerProvider.notifier)
-                    .navigateBack(context),
+                onPressed: () => notifier.navigateBack(context),
               ),
               title: TKXDtextFieldWidget(
                 placeholder: 'Search',
                 autofocus: true,
-                controller: ref
-                    .read(searchPageControllerProvider.notifier)
-                    .searchFieldController,
-                focusNode: ref
-                    .read(searchPageControllerProvider.notifier)
-                    .searchFieldFocus,
-                suffixIcon: ref
-                        .read(searchPageControllerProvider.notifier)
-                        .searchFieldController
-                        .text
-                        .isNotEmpty
-                    ? TKXDiconButtonWidget(
+                controller: notifier.searchFieldController,
+                focusNode: notifier.searchFieldFocus,
+                suffixIcon: state is SearchInitial && !state.isActive
+                    ? null
+                    : TKXDiconButtonWidget(
                         onPressed: ref
                             .read(searchPageControllerProvider.notifier)
                             .clearSearch,
@@ -58,8 +50,7 @@ class SearchPage extends StatelessWidget {
                           Icons.close,
                           color: TKXDtheme.of(context).iconColor,
                         ),
-                      )
-                    : null,
+                      ),
               ),
             ),
             body: GestureDetector(
