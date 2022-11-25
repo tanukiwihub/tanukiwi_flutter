@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../common/theme/theme.widget.dart';
 import '../../../../common/theme/widgets/appBar.widget.dart';
 import '../../../../common/theme/widgets/iconButton.widget.dart';
 import '../../../../common/theme/widgets/textField.widget.dart';
@@ -35,22 +34,8 @@ class SearchPage extends StatelessWidget {
                 icon: const Icon(Icons.arrow_back_ios_new),
                 onPressed: () => notifier.navigateBack(context),
               ),
-              title: TKXDtextFieldWidget(
-                placeholder: 'Search',
-                autofocus: true,
-                controller: notifier.searchFieldController,
-                focusNode: notifier.searchFieldFocus,
-                suffixIcon: state is SearchInitial && !state.isActive
-                    ? null
-                    : TKXDiconButtonWidget(
-                        onPressed: ref
-                            .read(searchPageControllerProvider.notifier)
-                            .clearSearch,
-                        icon: Icon(
-                          Icons.close,
-                          color: TKXDtheme.of(context).iconColor,
-                        ),
-                      ),
+              title: _SearchPageTextField(
+                searchPageController: notifier,
               ),
             ),
             body: GestureDetector(
@@ -63,4 +48,46 @@ class SearchPage extends StatelessWidget {
           );
         },
       );
+}
+
+class _SearchPageTextField extends StatefulWidget {
+  final SearchPageController searchPageController;
+
+  const _SearchPageTextField({
+    Key? key,
+    required this.searchPageController,
+  }) : super(key: key);
+
+  @override
+  State<_SearchPageTextField> createState() => _SearchPageTextFieldState();
+}
+
+class _SearchPageTextFieldState extends State<_SearchPageTextField> {
+  bool hasText = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return TKXDtextFieldWidget(
+      placeholder: 'Search',
+      autofocus: true,
+      controller: widget.searchPageController.searchFieldController,
+      focusNode: widget.searchPageController.searchFieldFocus,
+      onChanged: (value) {
+        setState(() {
+          hasText = value != '' ? true : false;
+        });
+      },
+      suffixIcon: hasText
+          ? TKXDiconButtonWidget(
+              onPressed: () {
+                setState(() {
+                  hasText = false;
+                });
+                widget.searchPageController.clearSearch();
+              },
+              icon: const Icon(Icons.close),
+            )
+          : null,
+    );
+  }
 }

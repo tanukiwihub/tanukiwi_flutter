@@ -12,11 +12,10 @@ abstract class SearchState with EquatableMixin {
 }
 
 class SearchInitial extends SearchState {
-  final bool isActive;
-  const SearchInitial({required this.isActive});
+  const SearchInitial();
 
   @override
-  List<Object> get props => [isActive];
+  List<Object> get props => [];
 }
 
 class SearchLoaded extends SearchState {
