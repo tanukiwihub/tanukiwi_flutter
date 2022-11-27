@@ -39,25 +39,30 @@ class TKXDlistCell extends StatefulWidget {
 }
 
 class _TKXDlistCellState extends State<TKXDlistCell> {
-  bool isTapDown = false;
+  bool isPanDown = false;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: widget.onTap,
-      onTapDown: (value) {
+      onPanDown: (value) {
         setState(() {
-          isTapDown = true;
+          isPanDown = true;
         });
       },
-      onTapCancel: () {
+      onPanEnd: (value) {
         setState(() {
-          isTapDown = false;
+          isPanDown = false;
+        });
+      },
+      onPanCancel: () {
+        setState(() {
+          isPanDown = false;
         });
       },
       child: Container(
         color:
-            isTapDown ? TKXDtheme.of(context).hoverColor : Colors.transparent,
+            isPanDown ? TKXDtheme.of(context).hoverColor : Colors.transparent,
         padding: EdgeInsets.only(
           left: TKXDtheme.of(context).pagePaddingX,
         ),
