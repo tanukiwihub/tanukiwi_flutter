@@ -1,32 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../common/theme/widgets/appBar.widget.dart';
+import '../../../../common/theme/widgets/iconButton.widget.dart';
 import '../controllers/kanji.controller.dart';
 import '../controllers/kanji.state.dart';
 
-class KanjiPage extends StatelessWidget {
+class KanjiPage extends ConsumerWidget {
   final String kanjiLiteral;
   final int kanjiId;
+
   const KanjiPage({Key? key, required this.kanjiLiteral, required this.kanjiId})
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(kanjiPageControllerProvider(kanjiId));
+    final notifier = ref.watch(kanjiPageControllerProvider(kanjiId).notifier);
+
+    Widget createBody() {
+      if (state is KanjiLoaded) {
+        return Text(
+          state.kanji.toString(),
+        );
+      } else {
+        return const Text('error');
+      }
+    }
+
     return Scaffold(
-      appBar: AppBar(
+      appBar: TKXDappBar(
+        parentContext: context,
+        leadingIcon: TKXDiconButtonWidget(
+          icon: const Icon(Icons.arrow_back_ios_new),
+          onPressed: () => notifier.navigateBack(context),
+        ),
         title: Text('Kanji: $kanjiLiteral'),
       ),
-      body: Consumer(builder: (context, ref, child) {
-        final state = ref.watch(kanjiPageControllerProvider(kanjiId));
-
-        if (state is KanjiLoaded) {
-          return Text(
-            state.kanji.toString(),
-          );
-        } else {
-          return const Text('error');
-        }
-      }),
+      body: createBody(),
     );
   }
 }

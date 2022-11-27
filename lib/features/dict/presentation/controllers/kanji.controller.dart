@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../data/repositories/tkdb.repository.dart';
 import '../../domain/repositories/tkdb.repository.dart';
@@ -23,6 +25,10 @@ class KanjiPageController extends StateNotifier<KanjiState> {
         kanji: success,
       );
     });
+  }
+
+  void navigateBack(BuildContext context) {
+    context.pop();
   }
 }
 

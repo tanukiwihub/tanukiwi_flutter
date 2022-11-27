@@ -121,7 +121,7 @@ class SearchLoadedWidget extends StatelessWidget {
                     ),
                   ),
                   onTap: () => {
-                    context.goNamed(
+                    context.pushNamed(
                       "kanji",
                       params: {
                         "literal": kanji[index].literal,
