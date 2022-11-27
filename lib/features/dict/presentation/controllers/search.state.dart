@@ -6,9 +6,7 @@ abstract class SearchState with EquatableMixin {
   const SearchState();
 
   @override
-  List<Object> get props {
-    return [];
-  }
+  List<Object> get props => [];
 }
 
 class SearchInitial extends SearchState {

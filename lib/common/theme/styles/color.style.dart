@@ -13,7 +13,7 @@ class TKXDcolors {
   // Label
   late final labelPrimary = const Color.fromRGBO(255, 255, 255, 1);
   late final labelSecondary = const Color.fromRGBO(240, 240, 245, .6);
-  static const labelTertiary = Color.fromRGBO(240, 240, 245, .3);
+  late final labelTertiary = const Color.fromRGBO(240, 240, 245, .3);
   static const labelQuarternary = Color.fromRGBO(255, 255, 255, .18);
 
   // Background
@@ -25,7 +25,7 @@ class TKXDcolors {
 
   // Separator
   late final Color separator = const Color.fromRGBO(60, 60, 64, 1);
-  static const separatorTransparent = Color.fromRGBO(90, 90, 93, .65);
+  late final Color separatorTransparent = const Color.fromRGBO(90, 90, 93, .65);
   // Fill
   static const fillPrimary = Color.fromRGBO(125, 125, 128, .36);
   late final fillSecondary = const Color.fromRGBO(125, 125, 128, .32);

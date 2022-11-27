@@ -21,7 +21,11 @@ class SearchPage extends StatelessWidget {
 
           if (state is SearchLoaded) {
             body = state.kanji.isNotEmpty
-                ? SearchLoadedWidget(kanji: state.kanji)
+                ? SearchLoadedWidget(
+                    // Pass a key so that the scroll positon is rested which a new query
+                    key: Key(notifier.searchFieldController.text),
+                    kanji: state.kanji,
+                  )
                 : const Text('No kanji');
           } else if (state is SearchInitial) {
             body = const Text('initial');

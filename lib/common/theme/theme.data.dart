@@ -24,6 +24,11 @@ class TKXDthemeData {
   // Space
   double space(multiplier) => getSpace(multiplier);
 
+  // Scroll bar
+  late final Color scrollbarColor = color.labelSecondary;
+  final double scrollbarThickness = 4.0;
+  final double scrollbarMinThumbLength = 32.0;
+
   // Misc
   final double pagePaddingX = 16.0;
   final double touchHeight = 48.0;
