@@ -1,20 +1,27 @@
 import 'package:flutter/widgets.dart';
 
 import '../theme.widget.dart';
+import 'appbarToolbar.widget.dart';
 
 class TKXDappBar extends StatelessWidget implements PreferredSizeWidget {
-  final Widget? leadingIcon;
-  final Widget? suffixIcon;
-  final Widget? title;
-  final BuildContext parentContext;
-
   const TKXDappBar({
-    Key? key,
-    this.leadingIcon,
-    this.suffixIcon,
+    super.key,
+    this.leading,
+    this.trailing,
     this.title,
+    this.centerMiddle = true,
     required this.parentContext,
-  }) : super(key: key);
+  });
+
+  final Widget? leading;
+
+  final Widget? trailing;
+
+  final Widget? title;
+
+  final bool centerMiddle;
+
+  final BuildContext parentContext;
 
   @override
   Size get preferredSize => Size.fromHeight(
@@ -23,40 +30,34 @@ class TKXDappBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = TKXDtheme.of(context);
+
+    Widget? $title = title;
+    if ($title != null) {
+      $title = DefaultTextStyle(
+        style: theme.defaultTextStyle,
+        child: $title,
+      );
+    }
+
     return Container(
       decoration: BoxDecoration(
-        color: TKXDtheme.of(context).appBarColor,
+        color: theme.appBarColor,
         border: Border(
-          bottom: TKXDtheme.of(context).appBarBorderBottom,
+          bottom: theme.appBarBorderBottom,
         ),
       ),
       child: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: TKXDtheme.of(context).appBarPaddingX,
+            horizontal: theme.appBarPaddingX,
           ),
-          child: Align(
-            alignment: Alignment.center,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  child: leadingIcon,
-                ),
-                Expanded(
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: TKXDtheme.of(context).appBarPaddingX,
-                    ),
-                    alignment: Alignment.center,
-                    child: title,
-                  ),
-                ),
-                Container(
-                  child: suffixIcon,
-                )
-              ],
-            ),
+          child: TKXDappBarToolbar(
+            leading: leading,
+            middle: $title,
+            trailing: trailing,
+            middleSpacing: TKXDtheme.of(context).appBarMiddleSpacing,
+            centerMiddle: centerMiddle,
           ),
         ),
       ),

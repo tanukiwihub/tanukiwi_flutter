@@ -41,6 +41,7 @@ class TKXDthemeData {
   late final Color appBarColor = color.bgPrimary;
   late final double appBarPaddingX = space(.25);
   late final double appBarTitlePaddingX = space(.375);
+  final double appBarMiddleSpacing = 16.0;
   late final BorderSide appBarBorderBottom = BorderSide(
     width: .5,
     color: color.separator,

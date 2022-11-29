@@ -35,7 +35,7 @@ class SearchPage extends ConsumerWidget {
     return Scaffold(
       appBar: TKXDappBar(
         parentContext: context,
-        leadingIcon: TKXDiconButtonWidget(
+        leading: TKXDiconButtonWidget(
           icon: const Icon(Icons.arrow_back_ios_new),
           onPressed: () => notifier.navigateBack(context),
         ),
