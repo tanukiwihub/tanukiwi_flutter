@@ -18,6 +18,84 @@ class TKXDlist extends StatelessWidget {
   }
 }
 
+class TKXDlistElevated extends StatelessWidget {
+  const TKXDlistElevated({
+    super.key,
+    required this.children,
+    this.title,
+    this.description,
+  });
+
+  final List<TKXDlistCell> children;
+  final String? title;
+  final String? description;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = TKXDtheme.of(context);
+    final List<Widget> elevatedListChildren = [];
+
+    // Title
+    if (title != null) {
+      Widget titleWidget = Padding(
+        padding: EdgeInsets.fromLTRB(
+          theme.tableViewElevatedPaddingX,
+          0,
+          theme.tableViewElevatedPaddingX,
+          8,
+        ),
+        child: Text(
+          title!,
+          style:
+              theme.text.caption1.copyWith(color: theme.color.labelSecondary),
+        ),
+      );
+      elevatedListChildren.add(titleWidget);
+    }
+
+    // List
+    Widget listWidget = Container(
+      clipBehavior: Clip.hardEdge,
+      decoration: BoxDecoration(
+        color: theme.color.bgPrimaryElevated,
+        borderRadius: BorderRadius.all(
+            Radius.circular(theme.tableViewElevatedBorderRadius)),
+      ),
+      child: Column(
+        children: children,
+      ),
+    );
+    elevatedListChildren.add(listWidget);
+
+    // Description
+    if (description != null) {
+      Widget descriptionWidget = Padding(
+        padding: EdgeInsets.fromLTRB(
+          theme.tableViewElevatedPaddingX,
+          8,
+          theme.tableViewElevatedPaddingX,
+          0,
+        ),
+        child: Text(
+          title!,
+          style:
+              theme.text.caption1.copyWith(color: theme.color.labelSecondary),
+        ),
+      );
+      elevatedListChildren.add(descriptionWidget);
+    }
+
+    return Padding(
+      padding:
+          EdgeInsets.fromLTRB(theme.pagePaddingX, 0, theme.pagePaddingX, 24.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: elevatedListChildren,
+      ),
+    );
+  }
+}
+
 class TKXDlistCell extends StatefulWidget {
   final Widget title;
   final Widget? subtitle;

@@ -23,10 +23,10 @@ class TKXDtag extends StatelessWidget {
     const double paddingY = 12.0;
 
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: paddingY),
+      padding: const EdgeInsets.symmetric(horizontal: paddingY),
       decoration: BoxDecoration(
         color: $background,
-        borderRadius: BorderRadius.all(Radius.circular(paddingY)),
+        borderRadius: const BorderRadius.all(Radius.circular(paddingY)),
       ),
       child: Text(
         label,

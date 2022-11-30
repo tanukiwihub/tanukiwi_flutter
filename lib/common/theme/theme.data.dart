@@ -37,7 +37,6 @@ class TKXDthemeData {
   late final Color hoverColor = color.white.withOpacity(hoverTransparency);
 
   // App Bar
-
   final double appBarHeight = 64.0;
   late final Color appBarColor = color.bgPrimary;
   late final double appBarPaddingX = space(.25);
@@ -48,6 +47,10 @@ class TKXDthemeData {
     color: color.separator,
   );
 
+  // Table
+  final double tableViewElevatedBorderRadius = 10.0;
+  final double tableViewElevatedPaddingX = 16.0;
+
   // Icon
   late final Color iconColor = color.labelSecondary;
 
@@ -55,7 +58,6 @@ class TKXDthemeData {
   late final Color cursorColor = focusColor;
 
   // Input
-
   late final TextStyle hintStyle = text.body.copyWith(
     color: color.labelSecondary,
   );

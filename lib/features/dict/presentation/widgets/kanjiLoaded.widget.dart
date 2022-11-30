@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:tanukiwi/common/constants/kanji.constants.dart';
+import 'package:tanukiwi/common/theme/widgets/list.widget.dart';
 import 'package:tanukiwi/common/theme/widgets/scrollbar.widget.dart';
 
 import '../../../../common/theme/theme.widget.dart';
@@ -142,9 +143,26 @@ class KanjiLoadedWidget extends StatelessWidget {
       listViewChildren.add(tags);
     }
 
+    //
+    // Meanings
+    //
+    if (kanji.meaningEn.isNotEmpty) {
+      String meaningString = '';
+      for (var a in kanji.meaningEn) {
+        meaningString += a;
+        if (a != kanji.meaningEn.last) {
+          meaningString += '; ';
+        }
+      }
+      Widget meaningWidget = TKXDlistElevated(
+        title: 'MEANINGS',
+        children: [TKXDlistCell(title: Text(meaningString))],
+      );
+      listViewChildren.add(meaningWidget);
+    }
+
     return TKXDscrollbar(
       child: ListView(
-        shrinkWrap: true,
         children: listViewChildren,
       ),
     );
