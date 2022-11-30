@@ -20,6 +20,7 @@ class TKXDthemeData {
     defaultColor: color.labelPrimary,
   );
   late final TextStyle defaultTextStyle = text.body;
+  late final TextStyle defaultTextStyleMedium = text.bodyMedium;
 
   // Space
   double space(multiplier) => getSpace(multiplier);

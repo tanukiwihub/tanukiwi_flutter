@@ -5,6 +5,7 @@ import '../../../../common/theme/widgets/appBar.widget.dart';
 import '../../../../common/theme/widgets/iconButton.widget.dart';
 import '../controllers/kanji.controller.dart';
 import '../controllers/kanji.state.dart';
+import '../widgets/kanjiLoaded.widget.dart';
 
 class KanjiPage extends ConsumerWidget {
   final String kanjiLiteral;
@@ -20,8 +21,8 @@ class KanjiPage extends ConsumerWidget {
 
     Widget createBody() {
       if (state is KanjiLoaded) {
-        return Text(
-          state.kanji.toString(),
+        return KanjiLoadedWidget(
+          kanji: state.kanji,
         );
       } else {
         return const Text('error');
@@ -35,7 +36,7 @@ class KanjiPage extends ConsumerWidget {
           icon: const Icon(Icons.arrow_back_ios_new),
           onPressed: () => notifier.navigateBack(context),
         ),
-        title: Text('Kanjiodjfoasdjf oiasdjf d: $kanjiLiteral'),
+        title: Text('Kanji: $kanjiLiteral'),
       ),
       body: createBody(),
     );

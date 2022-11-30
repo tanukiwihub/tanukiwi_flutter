@@ -14,7 +14,7 @@ class TKXDcolors {
   late final labelPrimary = const Color.fromRGBO(255, 255, 255, 1);
   late final labelSecondary = const Color.fromRGBO(240, 240, 245, .6);
   late final labelTertiary = const Color.fromRGBO(240, 240, 245, .3);
-  static const labelQuarternary = Color.fromRGBO(255, 255, 255, .18);
+  late final labelQuarternary = const Color.fromRGBO(255, 255, 255, .18);
 
   // Background
   late final Color bgPrimary = isDark
@@ -27,25 +27,25 @@ class TKXDcolors {
   late final Color separator = const Color.fromRGBO(60, 60, 64, 1);
   late final Color separatorTransparent = const Color.fromRGBO(90, 90, 93, .65);
   // Fill
-  static const fillPrimary = Color.fromRGBO(125, 125, 128, .36);
+  late final fillPrimary = const Color.fromRGBO(125, 125, 128, .36);
   late final fillSecondary = const Color.fromRGBO(125, 125, 128, .32);
-  static const fillTertiary = Color.fromRGBO(122, 123, 125, .24);
-  static const fillQuarternary = Color.fromRGBO(120, 120, 122, .18);
+  late final fillTertiary = const Color.fromRGBO(122, 123, 125, .24);
+  late final fillQuarternary = const Color.fromRGBO(120, 120, 122, .18);
   // System
-  static const blue = Color.fromRGBO(75, 141, 247, 1);
+  late final blue = const Color.fromRGBO(75, 141, 247, 1);
   late final indigo = const Color.fromRGBO(92, 107, 192, 1);
   // Highlight
-  static const highlightGray = Color.fromRGBO(191, 193, 200, 1);
-  static const highlightRed = Color.fromRGBO(239, 135, 143, 1);
-  static const highlightOrange = Color.fromRGBO(243, 177, 126, 1);
-  static const highlightGreen = Color.fromRGBO(170, 238, 177, 1);
-  static const highlightBlue = Color.fromRGBO(145, 188, 149, 1);
-  static const highlightPurple = Color.fromRGBO(179, 154, 134, 1);
+  late final highlightGray = const Color.fromRGBO(191, 193, 200, 1);
+  late final highlightRed = const Color.fromRGBO(239, 135, 143, 1);
+  late final highlightOrange = const Color.fromRGBO(243, 177, 126, 1);
+  late final highlightGreen = const Color.fromRGBO(170, 238, 177, 1);
+  late final highlightBlue = const Color.fromRGBO(145, 188, 249, 1);
+  late final highlightPurple = const Color.fromRGBO(179, 154, 234, 1);
   // HighlightBG
-  static const highlightBgGray = Color.fromRGBO(51, 52, 57, 1);
-  static const highlightBgRed = Color.fromRGBO(63, 37, 43, 1);
-  static const highlightBgOrange = Color.fromRGBO(64, 48, 39, 1);
-  static const highlightBgGreen = Color.fromRGBO(46, 63, 52, 1);
-  static const highlightBgBlue = Color.fromRGBO(40, 51, 70, 1);
-  static const highlightBgPurple = Color.fromRGBO(48, 42, 66, 1);
+  late final highlightBgGray = const Color.fromRGBO(51, 52, 57, 1);
+  late final highlightBgRed = const Color.fromRGBO(63, 37, 43, 1);
+  late final highlightBgOrange = const Color.fromRGBO(64, 48, 39, 1);
+  late final highlightBgGreen = const Color.fromRGBO(46, 63, 52, 1);
+  late final highlightBgBlue = const Color.fromRGBO(40, 51, 70, 1);
+  late final highlightBgPurple = const Color.fromRGBO(48, 42, 66, 1);
 }
