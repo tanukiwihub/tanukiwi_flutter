@@ -4,14 +4,14 @@ class Radical extends Equatable {
   final int id;
   final String literal;
   final int number;
-  final int? strokeCount;
+  final int strokeCount;
   final List<String> meaning;
 
   const Radical({
     required this.id,
     required this.literal,
     required this.number,
-    this.strokeCount,
+    required this.strokeCount,
     required this.meaning,
   });
 

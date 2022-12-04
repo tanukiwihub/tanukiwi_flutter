@@ -12,9 +12,9 @@ LEFT JOIN radical_meaning ON radical_meaning.radical_id = radical.id
 
 LEFT JOIN kanji ON kanji.id = cross_kanji_part.part_kanji_id
 LEFT JOIN kanji_misc on kanji_misc.kanji_id = kanji.id
-JOIN kw_kanji_strokecount ON kw_kanji_strokecount.id = kanji_misc.strokeCount_id
+LEFT JOIN kw_kanji_strokecount ON kw_kanji_strokecount.id = kanji_misc.strokeCount_id
 LEFT JOIN kanji_meaning ON kanji_meaning.kanji_id = kanji.id
-JOIN kw_kanji_lang ON kw_kanji_lang.id = kanji_meaning.kwLang_id AND  kw_kanji_lang.value = 'en'
+LEFT JOIN kw_kanji_lang ON kw_kanji_lang.id = kanji_meaning.kwLang_id AND  kw_kanji_lang.value = 'en'
 
 WHERE cross_kanji_part.kanji_id = $kanjiId
 ''';

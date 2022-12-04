@@ -57,6 +57,12 @@ class TKXDthemeData {
     color: color.separator,
   );
 
+  late final TextStyle listCellTitleStyle = defaultTextStyle;
+  late final TextStyle listCellPrefixKanjiStyle = defaultTextStyle.copyWith(
+    height: 1,
+    fontSize: 32.0,
+  );
+
   // Icon
   late final Color iconColor = color.labelSecondary;
 

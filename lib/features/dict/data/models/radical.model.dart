@@ -5,7 +5,7 @@ class RadicalModel extends Radical {
     required int id,
     required String literal,
     required int number,
-    int? strokeCount,
+    required int strokeCount,
     required List<String> meaning,
   }) : super(
           id: id,

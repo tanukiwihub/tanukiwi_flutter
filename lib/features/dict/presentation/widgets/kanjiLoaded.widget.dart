@@ -203,28 +203,106 @@ class KanjiLoadedWidget extends StatelessWidget {
       listViewChildren.add(readingsWidget);
     }
 
+    //
     // Components
-    /*
+    //
     var kanjiPart = kanji.part;
     if (kanjiPart != null && kanjiPart.isNotEmpty) {
       List<TKXDlistCell> componentsListChildren = [];
 
       for (var i = 0; i < kanjiPart.length; i++) {
-        var radical = kanjiPart[i].radical;
-        if (radical != null) {
+        var partRadical = kanjiPart[i].radical;
+        var partKanji = kanjiPart[i].kanji;
+        var partComponent = kanjiPart[i].component;
+
+        if (partRadical != null) {
+          componentsListChildren.add(
+            TKXDlistCell(
+              onTap: () {},
+              prefixIcon: Text(
+                partRadical.literal,
+                style: theme.listCellPrefixKanjiStyle,
+              ),
+              title: TKXDseparatedText(
+                text: partRadical.meaning,
+              ),
+              subtitle: Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: 'Radical #${partRadical.number}',
+                    ),
+                    TextSpan(
+                      text: ' • ',
+                      style: TextStyle(
+                        color: theme.color.labelTertiary,
+                      ),
+                    ),
+                    TextSpan(
+                      text:
+                          '${partRadical.strokeCount} stroke${partRadical.strokeCount > 1 ? 's' : ''}',
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        } else if (partComponent != null) {
           componentsListChildren.add(
             TKXDlistCell(
               prefixIcon: Text(
-                radical.literal,
+                partComponent,
+                style: theme.listCellPrefixKanjiStyle,
               ),
               title: Text(
-                radical.meaning,
+                'no meaning',
+                style: theme.listCellTitleStyle.copyWith(
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+              subtitle: const Text(
+                'Component',
+              ),
+            ),
+          );
+        } else if (partKanji != null) {
+          List<InlineSpan> descriptionChildren = [
+            const TextSpan(
+              text: 'Kanji',
+            ),
+          ];
+
+          var partKanjiStrokeCount = partKanji.strokeCount;
+          if (partKanjiStrokeCount != null) {
+            descriptionChildren.add(TextSpan(
+              text: ' • ',
+              style: TextStyle(
+                color: theme.color.labelTertiary,
+              ),
+            ));
+            descriptionChildren.add(TextSpan(
+              text:
+                  '${partKanji.strokeCount} stroke${partKanjiStrokeCount > 1 ? 's' : ''}',
+            ));
+          }
+
+          componentsListChildren.add(
+            TKXDlistCell(
+              onTap: () {},
+              prefixIcon: Text(
+                partKanji.literal,
+                style: theme.listCellPrefixKanjiStyle,
+              ),
+              title: TKXDseparatedText(
+                text: partKanji.meaningEn,
+              ),
+              subtitle: Text.rich(
+                TextSpan(children: descriptionChildren),
               ),
             ),
           );
         }
-      }/
-   
+      }
 
       Widget componentsWidget = TKXDlistElevated(
         title: 'COMPONENTS',
@@ -232,7 +310,6 @@ class KanjiLoadedWidget extends StatelessWidget {
       );
       listViewChildren.add(componentsWidget);
     }
-    */
 
     return TKXDscrollbar(
       child: ListView(
