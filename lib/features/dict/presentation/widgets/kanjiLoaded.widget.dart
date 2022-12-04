@@ -1,9 +1,11 @@
 import 'package:flutter/widgets.dart';
-import 'package:tanukiwi/common/constants/kanji.constants.dart';
-import 'package:tanukiwi/common/theme/widgets/list.widget.dart';
-import 'package:tanukiwi/common/theme/widgets/scrollbar.widget.dart';
+import 'package:tanukiwi/common/theme/widgets/separatedText.widget.dart';
 
+import '../../../../common/constants/kanji.constants.dart';
 import '../../../../common/theme/theme.widget.dart';
+import '../../../../common/theme/widgets/list.widget.dart';
+import '../../../../common/theme/widgets/listCell.widget.dart';
+import '../../../../common/theme/widgets/scrollbar.widget.dart';
 import '../../../../common/theme/widgets/tag.widget.dart';
 import '../../domain/entities/kanji.entity.dart';
 
@@ -33,7 +35,7 @@ class KanjiLoadedWidget extends StatelessWidget {
       ),
       child: Text(
         kanji.literal,
-        style: theme.defaultTextStyleMedium.copyWith(
+        style: theme.defaultTextStyle.copyWith(
           fontSize: 80,
           height: 1,
         ),
@@ -147,19 +149,90 @@ class KanjiLoadedWidget extends StatelessWidget {
     // Meanings
     //
     if (kanji.meaningEn.isNotEmpty) {
-      String meaningString = '';
-      for (var a in kanji.meaningEn) {
-        meaningString += a;
-        if (a != kanji.meaningEn.last) {
-          meaningString += '; ';
-        }
-      }
       Widget meaningWidget = TKXDlistElevated(
         title: 'MEANINGS',
-        children: [TKXDlistCell(title: Text(meaningString))],
+        children: [
+          TKXDlistCell(
+            title: TKXDseparatedText(
+              text: kanji.meaningEn,
+              seperatorColor: theme.color.labelSecondary,
+            ),
+            titleMultiline: true,
+          ),
+        ],
       );
       listViewChildren.add(meaningWidget);
     }
+
+    //
+    // Readings
+    //
+    if (kanji.readingJaKun.isNotEmpty || kanji.readingJaOn.isNotEmpty) {
+      List<TKXDlistCell> readingListChildren = [];
+
+      if (kanji.readingJaKun.isNotEmpty) {
+        readingListChildren.add(
+          TKXDlistCell(
+            title: TKXDseparatedText(
+              text: kanji.readingJaKun,
+              seperatorColor: theme.color.labelSecondary,
+            ),
+            subtitle: const Text('Kun\'Yomi'),
+            titleMultiline: true,
+          ),
+        );
+      }
+
+      if (kanji.readingJaOn.isNotEmpty) {
+        readingListChildren.add(
+          TKXDlistCell(
+            title: TKXDseparatedText(
+              text: kanji.readingJaOn,
+              seperatorColor: theme.color.labelSecondary,
+            ),
+            subtitle: const Text('On\'Yomi'),
+            titleMultiline: true,
+          ),
+        );
+      }
+
+      Widget readingsWidget = TKXDlistElevated(
+        title: 'READINGS',
+        children: readingListChildren,
+      );
+      listViewChildren.add(readingsWidget);
+    }
+
+    // Components
+    /*
+    var kanjiPart = kanji.part;
+    if (kanjiPart != null && kanjiPart.isNotEmpty) {
+      List<TKXDlistCell> componentsListChildren = [];
+
+      for (var i = 0; i < kanjiPart.length; i++) {
+        var radical = kanjiPart[i].radical;
+        if (radical != null) {
+          componentsListChildren.add(
+            TKXDlistCell(
+              prefixIcon: Text(
+                radical.literal,
+              ),
+              title: Text(
+                radical.meaning,
+              ),
+            ),
+          );
+        }
+      }/
+   
+
+      Widget componentsWidget = TKXDlistElevated(
+        title: 'COMPONENTS',
+        children: componentsListChildren,
+      );
+      listViewChildren.add(componentsWidget);
+    }
+    */
 
     return TKXDscrollbar(
       child: ListView(

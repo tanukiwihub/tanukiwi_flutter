@@ -47,9 +47,15 @@ class TKXDthemeData {
     color: color.separator,
   );
 
-  // Table
-  final double tableViewElevatedBorderRadius = 10.0;
-  final double tableViewElevatedPaddingX = 16.0;
+  // List
+  final double listViewElevatedBorderRadius = 10.0;
+  final double listViewElevatedPaddingX = 16.0;
+
+  // List Cell
+  late final BorderSide listCellBorderBottom = BorderSide(
+    width: .5,
+    color: color.separator,
+  );
 
   // Icon
   late final Color iconColor = color.labelSecondary;

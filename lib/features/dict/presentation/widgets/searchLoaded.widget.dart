@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tanukiwi/common/theme/widgets/list.widget.dart';
-import 'package:tanukiwi/common/theme/widgets/scrollbar.widget.dart';
+import 'package:tanukiwi/common/theme/widgets/separatedText.widget.dart';
 
 import '../../../../common/theme/theme.widget.dart';
+import '../../../../common/theme/widgets/listCell.widget.dart';
+import '../../../../common/theme/widgets/scrollbar.widget.dart';
 import '../../domain/entities/kanji.entity.dart';
 
 class SearchLoadedWidget extends StatelessWidget {
@@ -13,6 +14,8 @@ class SearchLoadedWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = TKXDtheme.of(context);
+
     String resultText =
         '${kanji.length.toString()} result${kanji.length > 1 ? 's' : ''} in kanji'
             .toUpperCase();
@@ -24,33 +27,24 @@ class SearchLoadedWidget extends StatelessWidget {
           SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.fromLTRB(
-                TKXDtheme.of(context).pagePaddingX,
-                TKXDtheme.of(context).space(1.0),
-                TKXDtheme.of(context).pagePaddingX,
-                TKXDtheme.of(context).space(0.25),
+                theme.pagePaddingX,
+                theme.space(1.0),
+                theme.pagePaddingX,
+                theme.space(0.25),
               ),
               child: Text(
                 resultText,
-                style: TKXDtheme.of(context).text.caption1.copyWith(
-                      color: TKXDtheme.of(context).color.labelSecondary,
-                    ),
+                style: theme.text.caption1.copyWith(
+                  color: theme.color.labelSecondary,
+                ),
               ),
             ),
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (BuildContext context, int index) {
-                String meaningString = '';
                 String readingJaKunString = '';
                 String readingJaOnString = '';
-
-                var meaningEn = kanji[index].meaningEn;
-                for (var a in meaningEn) {
-                  meaningString += a;
-                  if (a != meaningEn.last) {
-                    meaningString += '; ';
-                  }
-                }
 
                 var readingJaKun = kanji[index].readingJaKun;
                 for (var a in readingJaKun) {
@@ -79,15 +73,14 @@ class SearchLoadedWidget extends StatelessWidget {
                       Flexible(
                         child: Padding(
                           padding: EdgeInsets.only(
-                            left: TKXDtheme.of(context).space(.5),
+                            left: theme.space(.5),
                           ),
                           child: RichText(
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             text: TextSpan(
                               style: TextStyle(
-                                color:
-                                    TKXDtheme.of(context).color.labelSecondary,
+                                color: theme.color.labelSecondary,
                               ),
                               children: [
                                 TextSpan(
@@ -99,9 +92,7 @@ class SearchLoadedWidget extends StatelessWidget {
                                       ? ' • '
                                       : '',
                                   style: TextStyle(
-                                    color: TKXDtheme.of(context)
-                                        .color
-                                        .labelTertiary,
+                                    color: theme.color.labelTertiary,
                                   ),
                                 ),
                                 TextSpan(
@@ -114,10 +105,11 @@ class SearchLoadedWidget extends StatelessWidget {
                       )
                     ],
                   ),
-                  subtitle: Text(
-                    meaningString,
+                  subtitle: TKXDseparatedText(
+                    text: kanji[index].meaningEn,
+                    seperatorColor: theme.color.labelSecondary,
                     style: TextStyle(
-                      color: TKXDtheme.of(context).color.labelPrimary,
+                      color: theme.color.labelPrimary,
                     ),
                   ),
                   onTap: () => {
