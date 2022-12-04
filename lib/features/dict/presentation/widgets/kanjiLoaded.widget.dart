@@ -174,7 +174,8 @@ class KanjiLoadedWidget extends StatelessWidget {
         readingListChildren.add(
           TKXDlistCell(
             title: TKXDseparatedText(
-              text: kanji.readingJaKun,
+              text:
+                  kanji.readingJaKun.map((a) => a.replaceAll('.', '')).toList(),
               seperatorColor: theme.color.labelSecondary,
             ),
             subtitle: const Text('Kun\'Yomi'),
@@ -187,7 +188,8 @@ class KanjiLoadedWidget extends StatelessWidget {
         readingListChildren.add(
           TKXDlistCell(
             title: TKXDseparatedText(
-              text: kanji.readingJaOn,
+              text:
+                  kanji.readingJaOn.map((a) => a.replaceAll('.', '')).toList(),
               seperatorColor: theme.color.labelSecondary,
             ),
             subtitle: const Text('On\'Yomi'),
@@ -225,6 +227,7 @@ class KanjiLoadedWidget extends StatelessWidget {
               ),
               title: TKXDseparatedText(
                 text: partRadical.meaning,
+                seperatorColor: theme.color.labelSecondary,
               ),
               subtitle: Text.rich(
                 TextSpan(
@@ -295,6 +298,7 @@ class KanjiLoadedWidget extends StatelessWidget {
               ),
               title: TKXDseparatedText(
                 text: partKanji.meaningEn,
+                seperatorColor: theme.color.labelSecondary,
               ),
               subtitle: Text.rich(
                 TextSpan(children: descriptionChildren),
@@ -309,6 +313,123 @@ class KanjiLoadedWidget extends StatelessWidget {
         children: componentsListChildren,
       );
       listViewChildren.add(componentsWidget);
+    }
+
+    //
+    // Lookalikes
+    //
+    var kanjiLookalikes = kanji.lookalike;
+    if (kanjiLookalikes != null && kanjiLookalikes.isNotEmpty) {
+      List<TKXDlistCell> lookalikesListChildren = [];
+
+      for (var lookalike in kanjiLookalikes) {
+        var strokecountText = '';
+        var strokecount = lookalike.strokeCount;
+        if (strokecount != null) {
+          strokecountText = '$strokecount stroke${strokecount > 1 ? 's' : ''}';
+        }
+
+        lookalikesListChildren.add(
+          TKXDlistCell(
+            onTap: () {},
+            prefixIcon: Text(
+              lookalike.literal,
+              style: theme.listCellPrefixKanjiStyle,
+            ),
+            title: TKXDseparatedText(
+              text: lookalike.meaningEn,
+              seperatorColor: theme.color.labelSecondary,
+            ),
+            subtitle: Text(
+              strokecountText,
+            ),
+          ),
+        );
+      }
+
+      Widget lookalikesWidget = TKXDlistElevated(
+        title: 'SIMILAR KANJI',
+        children: lookalikesListChildren,
+      );
+      listViewChildren.add(lookalikesWidget);
+    }
+
+    //
+    // Synonyms
+    //
+    var kanjiSynonyms = kanji.synonym;
+    if (kanjiSynonyms != null && kanjiSynonyms.isNotEmpty) {
+      List<TKXDlistCell> synonymsListChildren = [];
+
+      for (var synonym in kanjiSynonyms) {
+        var strokecountText = '';
+        var strokecount = synonym.strokeCount;
+        if (strokecount != null) {
+          strokecountText = '$strokecount stroke${strokecount > 1 ? 's' : ''}';
+        }
+
+        synonymsListChildren.add(
+          TKXDlistCell(
+            onTap: () {},
+            prefixIcon: Text(
+              synonym.literal,
+              style: theme.listCellPrefixKanjiStyle,
+            ),
+            title: TKXDseparatedText(
+              text: synonym.meaningEn,
+              seperatorColor: theme.color.labelSecondary,
+            ),
+            subtitle: Text(
+              strokecountText,
+            ),
+          ),
+        );
+      }
+
+      Widget synonymsWidget = TKXDlistElevated(
+        title: 'SYNONYM KANJI',
+        children: synonymsListChildren,
+      );
+      listViewChildren.add(synonymsWidget);
+    }
+
+    //
+    // Antonyms
+    //
+    var kanjiAntonyms = kanji.antonym;
+    if (kanjiAntonyms != null && kanjiAntonyms.isNotEmpty) {
+      List<TKXDlistCell> antonymsListChildren = [];
+
+      for (var antonym in kanjiAntonyms) {
+        var strokecountText = '';
+        var strokecount = antonym.strokeCount;
+        if (strokecount != null) {
+          strokecountText = '$strokecount stroke${strokecount > 1 ? 's' : ''}';
+        }
+
+        antonymsListChildren.add(
+          TKXDlistCell(
+            onTap: () {},
+            prefixIcon: Text(
+              antonym.literal,
+              style: theme.listCellPrefixKanjiStyle,
+            ),
+            title: TKXDseparatedText(
+              text: antonym.meaningEn,
+              seperatorColor: theme.color.labelSecondary,
+            ),
+            subtitle: Text(
+              strokecountText,
+            ),
+          ),
+        );
+      }
+
+      Widget antonymsWidget = TKXDlistElevated(
+        title: 'ANTONYM KANJI',
+        children: antonymsListChildren,
+      );
+      listViewChildren.add(antonymsWidget);
     }
 
     return TKXDscrollbar(
