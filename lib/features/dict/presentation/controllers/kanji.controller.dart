@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../data/repositories/tkdb.repository.dart';
+import '../../domain/entities/kanji.entity.dart';
 import '../../domain/repositories/tkdb.repository.dart';
 import 'kanji.state.dart';
 
@@ -29,6 +30,16 @@ class KanjiPageController extends StateNotifier<KanjiState> {
 
   void navigateBack(BuildContext context) {
     context.pop();
+  }
+
+  void navigateToKanji(BuildContext context, Kanji kanji) {
+    context.pushNamed(
+      "kanji",
+      params: {
+        "literal": kanji.literal,
+        "id": kanji.id.toString(),
+      },
+    );
   }
 }
 

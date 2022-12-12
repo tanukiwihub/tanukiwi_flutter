@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tanukiwi/common/theme/widgets/separatedText.widget.dart';
 
 import '../../../../common/constants/kanji.constants.dart';
@@ -8,8 +9,9 @@ import '../../../../common/theme/widgets/listCell.widget.dart';
 import '../../../../common/theme/widgets/scrollbar.widget.dart';
 import '../../../../common/theme/widgets/tag.widget.dart';
 import '../../domain/entities/kanji.entity.dart';
+import '../controllers/kanji.controller.dart';
 
-class KanjiLoadedWidget extends StatelessWidget {
+class KanjiLoadedWidget extends ConsumerWidget {
   const KanjiLoadedWidget({
     super.key,
     required this.kanji,
@@ -18,8 +20,9 @@ class KanjiLoadedWidget extends StatelessWidget {
   final Kanji kanji;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = TKXDtheme.of(context);
+    final notifier = ref.watch(kanjiPageControllerProvider(kanji.id).notifier);
 
     List<Widget> listViewChildren = [];
 
@@ -291,7 +294,7 @@ class KanjiLoadedWidget extends StatelessWidget {
 
           componentsListChildren.add(
             TKXDlistCell(
-              onTap: () {},
+              onTap: () => notifier.navigateToKanji(context, partKanji),
               prefixIcon: Text(
                 partKanji.literal,
                 style: theme.listCellPrefixKanjiStyle,
@@ -331,7 +334,7 @@ class KanjiLoadedWidget extends StatelessWidget {
 
         lookalikesListChildren.add(
           TKXDlistCell(
-            onTap: () {},
+            onTap: () => notifier.navigateToKanji(context, lookalike),
             prefixIcon: Text(
               lookalike.literal,
               style: theme.listCellPrefixKanjiStyle,
@@ -370,7 +373,7 @@ class KanjiLoadedWidget extends StatelessWidget {
 
         synonymsListChildren.add(
           TKXDlistCell(
-            onTap: () {},
+            onTap: () => notifier.navigateToKanji(context, synonym),
             prefixIcon: Text(
               synonym.literal,
               style: theme.listCellPrefixKanjiStyle,
@@ -409,7 +412,7 @@ class KanjiLoadedWidget extends StatelessWidget {
 
         antonymsListChildren.add(
           TKXDlistCell(
-            onTap: () {},
+            onTap: () => notifier.navigateToKanji(context, antonym),
             prefixIcon: Text(
               antonym.literal,
               style: theme.listCellPrefixKanjiStyle,
