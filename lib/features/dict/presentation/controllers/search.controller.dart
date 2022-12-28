@@ -1,8 +1,8 @@
 import 'package:async/async.dart';
+import 'package:beamer/beamer.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../common/exceptions/failures.dart';
 import '../../data/repositories/tkdb.repository.dart';
@@ -46,9 +46,7 @@ class SearchPageController extends StateNotifier<SearchState> {
   }
 
   void navigateBack(BuildContext context) {
-    context.go(
-      "/",
-    );
+    Navigator.of(context).maybePop();
   }
 
   void clearSearch() {

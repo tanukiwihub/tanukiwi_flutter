@@ -1,6 +1,6 @@
+import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../data/repositories/tkdb.repository.dart';
 import '../../domain/entities/kanji.entity.dart';
@@ -29,16 +29,12 @@ class KanjiPageController extends StateNotifier<KanjiState> {
   }
 
   void navigateBack(BuildContext context) {
-    context.pop();
+    context.beamBack();
   }
 
   void navigateToKanji(BuildContext context, Kanji kanji) {
-    context.pushNamed(
-      "kanji",
-      params: {
-        "literal": kanji.literal,
-        "id": kanji.id.toString(),
-      },
+    context.beamToNamed(
+      '/dict/search/${kanji.id.toString()}/${kanji.literal}',
     );
   }
 }

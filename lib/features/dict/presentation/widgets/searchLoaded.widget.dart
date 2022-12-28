@@ -1,10 +1,10 @@
+import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:tanukiwi/common/theme/widgets/separatedText.widget.dart';
 
 import '../../../../common/theme/theme.widget.dart';
 import '../../../../common/theme/widgets/listCell.widget.dart';
 import '../../../../common/theme/widgets/scrollbar.widget.dart';
+import '../../../../common/theme/widgets/separatedText.widget.dart';
 import '../../domain/entities/kanji.entity.dart';
 
 class SearchLoadedWidget extends StatelessWidget {
@@ -113,12 +113,8 @@ class SearchLoadedWidget extends StatelessWidget {
                     ),
                   ),
                   onTap: () => {
-                    context.pushNamed(
-                      "kanji",
-                      params: {
-                        "literal": kanji[index].literal,
-                        "id": kanji[index].id.toString(),
-                      },
+                    context.beamToNamed(
+                      '/dict/search/${kanji[index].id.toString()}/${kanji[index].literal}',
                     ),
                   },
                 );
