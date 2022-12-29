@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
     initialPath: '/dict',
     locationBuilder: RoutesLocationBuilder(
       routes: {
-        '*': (context, state, data) => AppScreen(),
+        '*': (context, state, data) => const AppScreen(),
       },
     ),
   );
