@@ -215,5 +215,5 @@ class TKDBdataSourceLocalImpl implements TKDBdataSourceLocal {
 }
 
 final tkdbDataSourceLocalProvider = Provider<TKDBdataSourceLocal>((ref) {
-  return TKDBdataSourceLocalImpl(db: ref.watch(databaseUtilProvider).database);
+  return TKDBdataSourceLocalImpl(db: ref.watch(databaseUtilProvider));
 });

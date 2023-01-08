@@ -2,21 +2,23 @@ import 'package:beamer/beamer.dart';
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 
+import 'app.screen.dart';
 import "common/theme/materialTheme.data.dart";
 import "common/theme/theme.widget.dart";
 import "common/utils/database.util.dart";
-import 'app.screen.dart';
+import 'common/utils/mecab.util.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final databaseUtil = DatabaseUtil();
-  await databaseUtil.init();
+  final database = await DatabaseUtil.init();
+  final mecab = await MecabUtil.init();
 
   runApp(
     ProviderScope(
       overrides: [
-        databaseUtilProvider.overrideWithValue(databaseUtil),
+        databaseUtilProvider.overrideWithValue(database),
+        mecabUtilProvider.overrideWithValue(mecab),
       ],
       child: TKXDtheme(
         child: MyApp(),

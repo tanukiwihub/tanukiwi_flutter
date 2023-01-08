@@ -9,14 +9,12 @@ import 'package:sqflite/sqflite.dart';
 import '../constants/db.constants.dart';
 
 class DatabaseUtil {
-  late final Database database;
-
-  Future<void> init() async {
-    var databasesPath = await getDatabasesPath();
-    var path = p.join(databasesPath, NagaraDbConstants.dbName);
+  static Future<Database> init() async {
+    final databasesPath = await getDatabasesPath();
+    final path = p.join(databasesPath, NagaraDbConstants.dbName);
 
     // Check if the database exists
-    var exists = await databaseExists(path);
+    final exists = await databaseExists(path);
 
     if (!exists) {
       // Should happen only the first time you launch your application
@@ -43,11 +41,13 @@ class DatabaseUtil {
       await File(path).writeAsBytes(bytes, flush: true);
     }
     // open the database
-    database = await openDatabase(path, readOnly: true);
+    final Database database = await openDatabase(path, readOnly: true);
     debugPrint("Database opened");
+
+    return database;
   }
 }
 
-final databaseUtilProvider = Provider<DatabaseUtil>((ref) {
+final databaseUtilProvider = Provider<Database>((ref) {
   throw UnimplementedError();
 });
