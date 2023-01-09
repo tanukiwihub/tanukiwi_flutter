@@ -35,6 +35,7 @@ class TKXDthemeData {
   final double touchHeight = 48.0;
   final double hoverTransparency = .07;
   late final Color hoverColor = color.white.withOpacity(hoverTransparency);
+  final double defaultBorderWidth = 1.0;
 
   // App Bar
   final double appBarHeight = 64.0;
@@ -65,6 +66,27 @@ class TKXDthemeData {
 
   // Icon
   late final Color iconColor = color.labelSecondary;
+
+  // Icon Button
+
+  late final double iconButtonHeight = touchHeight;
+  late final double iconButtonWidth = iconButtonHeight;
+
+  // Button
+
+  late final double buttonHeight = touchHeight;
+  final double buttonPaddingX = 20.0;
+  final double buttonBorderRadius = 14.0;
+  late final TextStyle buttonDefaultTextStyle = text.subheadlineBold.copyWith(
+    height: 1,
+  );
+
+  late final BoxBorder buttonOutlinedBoxBorder = Border.all(
+    width: defaultBorderWidth,
+    color: color.separator,
+  );
+  late final Color buttonOutlinedDefaultColor = color.white;
+  late final double buttonOutlinedHighlightColorBlend = .12;
 
   // Text Field
   late final Color cursorColor = focusColor;

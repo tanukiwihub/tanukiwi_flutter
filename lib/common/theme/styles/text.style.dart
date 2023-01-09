@@ -30,7 +30,7 @@ class TKXDtextStyles {
     height: 1.6,
     fontWeight: FontWeight.w400,
   );
-  late final TextStyle subheadlineBold = body.copyWith(
+  late final TextStyle subheadlineBold = subheadline.copyWith(
     fontWeight: FontWeight.w700,
   );
 

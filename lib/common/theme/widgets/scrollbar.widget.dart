@@ -4,11 +4,18 @@ import '../theme.widget.dart';
 
 class TKXDscrollbar extends StatelessWidget {
   final Widget child;
-  const TKXDscrollbar({Key? key, required this.child}) : super(key: key);
+  final ScrollController? controller;
+
+  const TKXDscrollbar({
+    Key? key,
+    required this.child,
+    this.controller,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return RawScrollbar(
+      controller: controller,
       thumbColor: TKXDtheme.of(context).scrollbarColor,
       minThumbLength: TKXDtheme.of(context).scrollbarMinThumbLength,
       interactive: false,

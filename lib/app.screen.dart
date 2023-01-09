@@ -43,36 +43,39 @@ class _AppScreenState extends State<AppScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: IndexedStack(
-        index: currentIndex,
-        children: [
-          Beamer(
-            routerDelegate: routerDelegates[0],
-          ),
-          Beamer(
-            routerDelegate: routerDelegates[1],
-          ),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        items: const [
-          BottomNavigationBarItem(
-            label: 'Dictionary',
-            icon: Icon(Icons.book),
-          ),
-          BottomNavigationBarItem(
-            label: 'Converter',
-            icon: Icon(Icons.article),
-          ),
-        ],
-        onTap: (index) {
-          if (index != currentIndex) {
-            setState(() => currentIndex = index);
-            routerDelegates[currentIndex].update(rebuild: false);
-          }
-        },
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        body: IndexedStack(
+          index: currentIndex,
+          children: [
+            Beamer(
+              routerDelegate: routerDelegates[0],
+            ),
+            Beamer(
+              routerDelegate: routerDelegates[1],
+            ),
+          ],
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: currentIndex,
+          items: const [
+            BottomNavigationBarItem(
+              label: 'Dictionary',
+              icon: Icon(Icons.book),
+            ),
+            BottomNavigationBarItem(
+              label: 'Converter',
+              icon: Icon(Icons.article),
+            ),
+          ],
+          onTap: (index) {
+            if (index != currentIndex) {
+              setState(() => currentIndex = index);
+              routerDelegates[currentIndex].update(rebuild: false);
+            }
+          },
+        ),
       ),
     );
   }

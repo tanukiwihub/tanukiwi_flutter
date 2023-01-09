@@ -9,32 +9,32 @@ class ConverterPageController extends StateNotifier<ConverterState> {
   final ConverterService converterService;
 
   final TextEditingController inputController = TextEditingController();
-
-  final ClipboardStatusNotifier clipboardStatusNotifier =
-      ClipboardStatusNotifier();
+  final FocusNode inputFocusNode = FocusNode();
 
   ConverterPageController(
     this.converterService,
-  ) : super(ConverterInitial(hasClipboardString: _hasClipboardString())) {
+  ) : super(const ConverterInitial()) {
     _onInit();
   }
 
   String _lastInput = '';
 
-  static Future<bool> _hasClipboardString() async {
+  Future<bool> hasClipboardString() async {
     return await Clipboard.hasStrings();
   }
 
   void _onInit() {
     inputController.addListener(_onInputChange);
-    clipboardStatusNotifier.addListener(_onClipboardStatusChange);
+    inputFocusNode.addListener(_onInputFocusChange);
   }
 
-  // Rebuild the initial widgets if the clipboard status has changed,
-  // so that the paste button is only shown when a string is in clipboard
-  Future<void> _onClipboardStatusChange() async {
-    if (state is ConverterInitial) {
-      state = ConverterInitial(hasClipboardString: _hasClipboardString());
+  void _onInputFocusChange() {
+    if (inputController.text.isEmpty) {
+      if (inputFocusNode.hasFocus) {
+        state = const ConverterActive();
+      } else {
+        state = const ConverterInitial();
+      }
     }
   }
 
@@ -45,7 +45,11 @@ class ConverterPageController extends StateNotifier<ConverterState> {
     _lastInput = inputController.text;
 
     if (inputController.text.isEmpty) {
-      state = ConverterInitial(hasClipboardString: _hasClipboardString());
+      if (inputFocusNode.hasFocus) {
+        state = const ConverterActive();
+      } else {
+        state = const ConverterInitial();
+      }
     } else {
       final morphResult = converterService.getMorphs(inputController.text);
       morphResult.fold(
@@ -70,11 +74,21 @@ class ConverterPageController extends StateNotifier<ConverterState> {
           selection: TextSelection.collapsed(offset: updatedText.length),
         );
       }
-    } else {}
+    }
   }
 
-  void onInputClearTap() {
-    inputController.clear();
+  void onInputSizedBoxTap() {
+    if (!inputFocusNode.hasFocus) {
+      inputFocusNode.requestFocus();
+    }
+  }
+
+  void onInputClearTap(BuildContext context) {
+    if (inputController.text.isEmpty) {
+      FocusScope.of(context).requestFocus(FocusNode());
+    } else {
+      inputController.clear();
+    }
   }
 }
 

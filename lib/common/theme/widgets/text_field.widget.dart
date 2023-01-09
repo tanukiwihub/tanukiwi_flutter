@@ -10,18 +10,20 @@ class TKXDtextField extends StatelessWidget {
   final int? minLines;
   final String? placeholder;
   final ValueChanged<String>? onChanged;
+  final EdgeInsetsGeometry? contentPadding;
 
-  const TKXDtextField({
-    Key? key,
-    this.autofocus = false,
-    this.controller,
-    this.expands = false,
-    this.focusNode,
-    this.maxLines = 1,
-    this.minLines,
-    this.onChanged,
-    this.placeholder,
-  }) : super(key: key);
+  const TKXDtextField(
+      {Key? key,
+      this.autofocus = false,
+      this.controller,
+      this.expands = false,
+      this.focusNode,
+      this.maxLines = 1,
+      this.minLines,
+      this.onChanged,
+      this.placeholder,
+      this.contentPadding})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +40,12 @@ class TKXDtextField extends StatelessWidget {
       style: theme.text.body,
       keyboardAppearance: theme.brightness,
       onChanged: onChanged,
+      scrollPhysics: const NeverScrollableScrollPhysics(),
       decoration: InputDecoration(
         hintText: placeholder,
         isCollapsed: true,
         border: InputBorder.none,
+        contentPadding: contentPadding,
       ),
     );
   }

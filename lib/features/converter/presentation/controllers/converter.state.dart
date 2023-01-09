@@ -11,12 +11,11 @@ abstract class ConverterState with EquatableMixin {
 }
 
 class ConverterInitial extends ConverterState {
-  final Future<bool> hasClipboardString;
+  const ConverterInitial();
+}
 
-  const ConverterInitial({required this.hasClipboardString});
-
-  @override
-  List<Object> get props => super.props..addAll([hasClipboardString]);
+class ConverterActive extends ConverterState {
+  const ConverterActive();
 }
 
 class ConverterLoaded extends ConverterState {

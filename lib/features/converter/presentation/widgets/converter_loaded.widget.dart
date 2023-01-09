@@ -42,23 +42,21 @@ class ConverterLoadedWidget extends StatelessWidget {
       tokens.add(tokenWidget);
     }
 
-    return Flexible(
-      child: TKXDscrollbar(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(
-              theme.pagePaddingX,
-              theme.space(1.0),
-              theme.pagePaddingX,
-              theme.space(.5),
-            ),
-            child: Align(
-              alignment: Alignment.topLeft,
-              child: Wrap(
-                runSpacing: 16.0,
-                spacing: 16.0,
-                children: tokens,
-              ),
+    return TKXDscrollbar(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(
+            theme.pagePaddingX,
+            theme.space(1.0),
+            theme.pagePaddingX,
+            theme.space(.5),
+          ),
+          child: Align(
+            alignment: Alignment.topLeft,
+            child: Wrap(
+              runSpacing: 16.0,
+              spacing: 16.0,
+              children: tokens,
             ),
           ),
         ),
