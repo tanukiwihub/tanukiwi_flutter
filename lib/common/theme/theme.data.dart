@@ -13,7 +13,7 @@ class TKXDthemeData {
 
   // Colors
   late final TKXDcolors color = TKXDcolors(isDark: isDark);
-  late final Color focusColor = color.indigo;
+  late final Color focusColor = color.highlightBlue;
 
   // Typography
   late final TKXDtextStyles text = TKXDtextStyles(
@@ -36,6 +36,10 @@ class TKXDthemeData {
   final double hoverTransparency = .07;
   late final Color hoverColor = color.white.withOpacity(hoverTransparency);
   final double defaultBorderWidth = 1.0;
+  late final BorderSide defaultBorderSide = BorderSide(
+    color: color.separator,
+    width: defaultBorderWidth,
+  );
 
   // App Bar
   final double appBarHeight = 64.0;
@@ -43,20 +47,14 @@ class TKXDthemeData {
   late final double appBarPaddingX = space(.25);
   late final double appBarTitlePaddingX = space(.375);
   final double appBarMiddleSpacing = 16.0;
-  late final BorderSide appBarBorderBottom = BorderSide(
-    width: .5,
-    color: color.separator,
-  );
+  late final BorderSide appBarBorderBottom = defaultBorderSide;
 
   // List
   final double listViewElevatedBorderRadius = 10.0;
   final double listViewElevatedPaddingX = 16.0;
 
   // List Cell
-  late final BorderSide listCellBorderBottom = BorderSide(
-    width: .5,
-    color: color.separator,
-  );
+  late final BorderSide listCellBorderBottom = defaultBorderSide;
 
   late final TextStyle listCellTitleStyle = defaultTextStyle;
   late final TextStyle listCellPrefixKanjiStyle = defaultTextStyle.copyWith(
@@ -88,6 +86,15 @@ class TKXDthemeData {
   late final Color buttonOutlinedDefaultColor = color.white;
   late final double buttonOutlinedHighlightColorBlend = .12;
 
+  // Bottom navigation bar
+  late final double bottomNavigatoinBarHeight = 56.0;
+  late final Color bottomNavigationBarBackgroundColor = color.bgPrimary;
+  late final BorderSide bottomNavigationBarTopBorderSide = defaultBorderSide;
+
+  late final Color bottomNavigationBarColor = color.labelPrimary;
+  late final Color bottomNavigationBarSelectedColor = focusColor;
+
+  late final TextStyle bottomNavigationBarTextStyle = text.caption2Bold;
   // Text Field
   late final Color cursorColor = focusColor;
 
@@ -95,4 +102,7 @@ class TKXDthemeData {
   late final TextStyle hintStyle = text.body.copyWith(
     color: color.labelSecondary,
   );
+
+  // Divider
+  late final double dividerHeight = defaultBorderWidth;
 }

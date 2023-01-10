@@ -12,7 +12,7 @@ class TKXDdivider extends StatelessWidget {
     final theme = TKXDtheme.of(context);
 
     return Container(
-      height: .5,
+      height: theme.dividerHeight,
       color: theme.color.separator,
     );
   }

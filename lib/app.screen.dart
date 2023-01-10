@@ -1,6 +1,8 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
+import 'package:tanukiwi/common/theme/widgets/bottom_navigation_bar_item.widget.dart';
 
+import 'common/theme/widgets/bottom_navigation_bar.widget.dart';
 import 'locations.dart';
 
 class AppScreen extends StatefulWidget {
@@ -46,6 +48,7 @@ class _AppScreenState extends State<AppScreen> {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: IndexedStack(
           index: currentIndex,
           children: [
@@ -57,24 +60,24 @@ class _AppScreenState extends State<AppScreen> {
             ),
           ],
         ),
-        bottomNavigationBar: BottomNavigationBar(
+        bottomNavigationBar: TKXDbottomNavigationBar(
           currentIndex: currentIndex,
-          items: const [
-            BottomNavigationBarItem(
-              label: 'Dictionary',
-              icon: Icon(Icons.book),
-            ),
-            BottomNavigationBarItem(
-              label: 'Converter',
-              icon: Icon(Icons.article),
-            ),
-          ],
           onTap: (index) {
             if (index != currentIndex) {
               setState(() => currentIndex = index);
               routerDelegates[currentIndex].update(rebuild: false);
             }
           },
+          items: const [
+            TKXDbottomNavigationBarItem(
+              icon: Icon(Icons.menu_book),
+              title: Text('Directory'),
+            ),
+            TKXDbottomNavigationBarItem(
+              icon: Icon(Icons.translate),
+              title: Text('Converter'),
+            ),
+          ],
         ),
       ),
     );

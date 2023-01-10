@@ -41,7 +41,18 @@ class TKXDtextStyles {
     height: 1.6,
     fontWeight: FontWeight.w400,
   );
-  late final TextStyle caption1Bold = body.copyWith(
+  late final TextStyle caption1Bold = caption1.copyWith(
+    fontWeight: FontWeight.w700,
+  );
+
+  late final TextStyle caption2 = TextStyle(
+    fontFamily: fontFamily,
+    color: defaultColor,
+    fontSize: 11.0,
+    height: 1.6,
+    fontWeight: FontWeight.w400,
+  );
+  late final TextStyle caption2Bold = caption2.copyWith(
     fontWeight: FontWeight.w700,
   );
 }

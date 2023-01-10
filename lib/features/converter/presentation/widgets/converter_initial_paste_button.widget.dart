@@ -65,6 +65,5 @@ class _ConverterInitialPasteButtonWidgetState
         child: const Text('Paste'),
       ),
     );
-    ;
   }
 }
